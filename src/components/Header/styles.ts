@@ -90,7 +90,6 @@ export const TextDiv = styled.div<Props>`
         `
       : css`
           width: 120px;
-          color: red;
         `}
   > button {
     border-radius: 17px;
@@ -103,7 +102,6 @@ export const TextDiv = styled.div<Props>`
     outline: none;
   }
   > {
-    color: red;
     justify-content: space-between;
   }
 
