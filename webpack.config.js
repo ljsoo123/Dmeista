@@ -13,11 +13,21 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: "ts-loader",
+        test: /\.(tsx|ts)?$/,
+        loader: "ts-loader",
         exclude: "/node_modules/",
       },
+      {
+        test: /\.(jpg|png|jpeg|bmp|gif|svg)?$/,
+        loader: "file-loader",
+      },
     ],
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "public"),
+    inline: true,
+    hot: true,
+    historyApiFallback: true,
   },
   output: {
     filename: "bundle.js",
