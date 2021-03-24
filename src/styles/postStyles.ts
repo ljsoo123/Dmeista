@@ -54,11 +54,12 @@ export const ContentDiv = styled.div`
 export const BottomDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  > button {
+  width: 100%;
+  > div > button {
     border-radius: 17px;
     border: 0.5px solid #707070;
-    width: 16%;
     background-color: white;
+    width: 32%;
     height: 34px;
   }
   > button:focus {
@@ -71,5 +72,38 @@ export const BottomText = styled.div`
   display: flex;
   > div:nth-child(1) {
     margin-right: 20px;
+  }
+`;
+export const ButtonDiv = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  > button {
+    margin-left: 20px;
+  }
+  > button:focus {
+    outline: none;
+  }
+  > button:nth-child(1):nth-last-child(2):hover {
+    background-color: black;
+  }
+`;
+
+export const IconDiv = styled.div`
+  border: 0.5px solid #707070;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 17px;
+  padding-left: 30px;
+  padding-right: 30px;
+`;
+
+export const IconInsideDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  > div:hover {
+    transform: scale(1.5);
   }
 `;
