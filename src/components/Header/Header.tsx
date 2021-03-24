@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Store } from "../../modules/reducer";
 import * as S from "./styles";
+import { loginStateSaga } from "../../modules/action/loginCheck";
 
 const Header = () => {
-  const [isLogined, setIsLogined] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const loginCheck: boolean = useSelector(
+    (store: Store) => store.loginCheck.loginCheck
+  );
+
   const [name, setName] = useState<string>("이지수");
   return (
     <>
@@ -15,10 +22,10 @@ const Header = () => {
             </S.Input>
           </S.MainLeft>
           <S.MainRight>
-            <S.TextDiv loginCheck={isLogined}>
-              {!isLogined ? (
+            <S.TextDiv loginCheck={loginCheck}>
+              {!loginCheck ? (
                 <>
-                  <div>로그인</div>
+                  <div onClick={() => dispatch(loginStateSaga())}>로그인</div>
                   <div>&nbsp;|&nbsp;</div>
                   <div>회원가입</div>
                 </>
@@ -29,7 +36,9 @@ const Header = () => {
                   <div>
                     <div>{name}&nbsp;님 안녕하세요</div>
                     <div>&nbsp;|&nbsp;</div>
-                    <div>로그아웃</div>
+                    <div onClick={() => dispatch(loginStateSaga())}>
+                      로그아웃
+                    </div>
                   </div>
                 </>
               )}
