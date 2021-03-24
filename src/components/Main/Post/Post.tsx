@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import * as S from "../../../styles/postStyles";
 import * as Type from "../../../../types";
+import { Store } from "../../../modules/reducer";
 
 const Post = (props: {
   postTitle: Type.titleType;
@@ -12,6 +14,10 @@ const Post = (props: {
   like: Type.likeType;
 }) => {
   const { postTitle, postNickName, hashTag, time, write, views, like } = props;
+  const loginCheck: boolean = useSelector(
+    (store: Store) => store.loginCheck.loginCheck
+  );
+  const [hover, setHover] = useState<boolean>(false);
   return (
     <S.Main>
       <S.PostDiv>
@@ -38,7 +44,32 @@ const Post = (props: {
             <div>조회수&nbsp;{views}</div>
             <div>공감수&nbsp;{like}</div>
           </S.BottomText>
-          <button>게시물 보기</button>
+          <S.ButtonDiv
+            onMouseEnter={() => {
+              setHover((prev) => !prev);
+            }}
+            onMouseLeave={() => {
+              setHover((prev) => !prev);
+            }}
+          >
+            {loginCheck &&
+              (!hover ? (
+                <button>이모지 추가</button>
+              ) : (
+                <S.IconDiv>
+                  <S.IconInsideDiv>
+                    <div>&#x1F44D;</div>
+                    <div>❤️</div>
+                    <div>&#x1F601;</div>
+                    <div>&#x1F625;</div>
+                    <div>&#x1F632;</div>
+                    <div>&#x1F621;</div>
+                  </S.IconInsideDiv>
+                </S.IconDiv>
+              ))}
+
+            <button>게시물 보기</button>
+          </S.ButtonDiv>
         </S.BottomDiv>
       </S.PostDiv>
     </S.Main>
