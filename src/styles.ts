@@ -6,5 +6,6 @@ body{
     margin: 0 auto;
     @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 font-family: "Noto Sans KR", sans-serif;
+background-color: #fbfbfb
 }
         `;
