@@ -44,19 +44,22 @@ const Post = (props: {
             <div>조회수&nbsp;{views}</div>
             <div>공감수&nbsp;{like}</div>
           </S.BottomText>
-          <S.ButtonDiv
-            onMouseEnter={() => {
-              setHover((prev) => !prev);
-            }}
-            onMouseLeave={() => {
-              setHover((prev) => !prev);
-            }}
-          >
+          <S.ButtonDiv>
             {loginCheck &&
               (!hover ? (
-                <button>이모지 추가</button>
+                <button
+                  onMouseEnter={() => {
+                    setHover((prev) => !prev);
+                  }}
+                >
+                  이모지 추가
+                </button>
               ) : (
-                <S.IconDiv>
+                <S.IconDiv
+                  onMouseLeave={() => {
+                    setHover((prev) => !prev);
+                  }}
+                >
                   <S.IconInsideDiv>
                     <div>&#x1F44D;</div>
                     <div>❤️</div>
