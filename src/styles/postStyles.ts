@@ -1,4 +1,8 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+
+interface Props {
+  hover: boolean;
+}
 
 export const Main = styled.div`
   width: 100vw;
@@ -74,29 +78,44 @@ export const BottomText = styled.div`
     margin-right: 20px;
   }
 `;
+const buttonAnimation = keyframes`
+0% {
+  width: 0%;
+}
+100% {
+  width: 38%;
+}`;
 export const ButtonDiv = styled.div`
   width: 50%;
   display: flex;
   justify-content: flex-end;
   > button {
+    width: 38%;
     margin-left: 20px;
   }
   > button:focus {
     outline: none;
   }
   > button:nth-child(1):nth-last-child(2):hover {
-    background-color: black;
   }
 `;
 
-export const IconDiv = styled.div`
+export const IconDiv = styled.div<Props>`
   border: 0.5px solid #707070;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   border-radius: 17px;
   padding-left: 30px;
   padding-right: 30px;
+  width: 38%
+    ${(props) =>
+      props.hover &&
+      css`
+        overflow: hidden;
+        animation: ${buttonAnimation};
+        animation-duration: 0.5s;
+      `};
 `;
 
 export const IconInsideDiv = styled.div`
