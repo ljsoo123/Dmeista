@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState, MutableRefObject } from "react";
 import { useSelector } from "react-redux";
 import * as S from "../../../styles/postStyles";
 import * as Type from "../../../../types";
@@ -12,14 +12,31 @@ const Post = (props: {
   write: Type.writeType;
   views: Type.viewsType;
   like: Type.likeType;
+  onClick: (id: number) => void;
+  id: number;
 }) => {
-  const { postTitle, postNickName, hashTag, time, write, views, like } = props;
+  const {
+    postTitle,
+    postNickName,
+    hashTag,
+    time,
+    write,
+    views,
+    like,
+    id,
+    onClick,
+  } = props;
+
   const loginCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.loginCheck
   );
   const [hover, setHover] = useState<boolean>(false);
   return (
-    <S.Main>
+    <S.Main
+      onClick={() => {
+        onClick(id);
+      }}
+    >
       <S.PostDiv>
         <S.TopDiv>
           <div>
@@ -56,6 +73,7 @@ const Post = (props: {
                 </button>
               ) : (
                 <S.IconDiv
+                  hover={hover}
                   onMouseLeave={() => {
                     setHover((prev) => !prev);
                   }}

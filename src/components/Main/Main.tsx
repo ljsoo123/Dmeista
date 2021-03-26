@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Post from "./Post/Post";
 import * as S from "../../styles/MainStyle";
 import * as Type from "../../../types";
+import { useHistory } from "react-router-dom";
 
 const Main = () => {
+  const history = useHistory();
+  let postRef = useRef<HTMLDivElement>();
   const [title, setTitle] = useState<Type.titleType[]>(["title", 635]);
   const [nickname, setNickname] = useState<Type.nicknameType[]>([
     "kangshinhee",
@@ -23,6 +26,9 @@ const Main = () => {
   ]);
   const [views, setViews] = useState<Type.viewsType[]>([10, 20]);
   const [like, setLike] = useState<Type.likeType[]>([23, 30]);
+  const onPostClick = (id: number) => {
+    history.push(`/post/${id}`);
+  };
   return (
     <>
       {title.map((now, i: number) => {
@@ -35,6 +41,9 @@ const Main = () => {
             write={write[i]}
             views={views[i]}
             like={like[i]}
+            onClick={onPostClick}
+            key={i}
+            id={i}
           />
         );
       })}
