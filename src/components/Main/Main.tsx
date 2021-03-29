@@ -31,22 +31,24 @@ const Main = () => {
   };
   return (
     <>
-      {title.map((now, i: number) => {
-        return (
-          <Post
-            postTitle={now}
-            postNickName={nickname[i]}
-            hashTag={hashTag[i]}
-            time={time[i]}
-            write={write[i]}
-            views={views[i]}
-            like={like[i]}
-            onClick={onPostClick}
-            key={i}
-            id={i}
-          />
-        );
-      })}
+      <S.MainDiv>
+        {title.map((now, i: number) => {
+          return (
+            <Post
+              postTitle={now}
+              postNickName={nickname[i]}
+              hashTag={hashTag[i]}
+              time={time[i]}
+              write={write[i]}
+              views={views[i]}
+              like={like[i]}
+              onClick={onPostClick}
+              key={i}
+              id={i}
+            />
+          );
+        })}
+      </S.MainDiv>
     </>
   );
 };
