@@ -1,18 +1,42 @@
-import LoginAction, { LOGINSTATE } from "../../action/loginCheck";
+import LoginCheckAction, {
+  LOGINSTATE,
+  MODALSTATE,
+} from "../../action/loginCheck";
+import { User } from "../../../../types";
 
 interface LoginState {
   loginCheck: boolean;
+  modalCheck: boolean;
+  user: User[];
 }
 
-const initialState: LoginState = {
+export const initialState: LoginState = {
   loginCheck: false,
+  modalCheck: false,
+  user: [
+    {
+      nickname: "kangshinhee",
+      email: "rkdtlsgml40@gmail.com",
+      createdAt: "2020-12-15",
+    },
+  ],
 };
 
-const loginCheckReducer = (state = initialState, action: LoginAction) => {
+const loginCheckReducer = (
+  state: LoginState = initialState,
+  action: LoginCheckAction
+): LoginState => {
   switch (action.type) {
     case LOGINSTATE: {
       return {
+        ...state,
         loginCheck: !state.loginCheck,
+      };
+    }
+    case MODALSTATE: {
+      return {
+        ...state,
+        modalCheck: !state.modalCheck,
       };
     }
     default: {
