@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import * as S from "../../../styles/postStyles";
 import * as Type from "../../../../types";
 import { Store } from "../../../modules/reducer";
+import { useHistory } from "react-router-dom";
 
 const Post = (props: {
   postTitle: Type.titleType;
@@ -32,11 +33,7 @@ const Post = (props: {
   );
   const [hover, setHover] = useState<boolean>(false);
   return (
-    <S.Main
-      onClick={() => {
-        onClick(id);
-      }}
-    >
+    <S.Main>
       <S.PostDiv>
         <S.TopDiv>
           <div>
@@ -89,7 +86,13 @@ const Post = (props: {
                 </S.IconDiv>
               ))}
 
-            <button>게시물 보기</button>
+            <button
+              onClick={() => {
+                onClick(id);
+              }}
+            >
+              게시물 보기
+            </button>
           </S.ButtonDiv>
         </S.BottomDiv>
       </S.PostDiv>

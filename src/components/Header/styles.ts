@@ -24,6 +24,8 @@ export const MainLeft = styled.div`
 export const MainRight = styled.div``;
 
 export const MainDiv = styled.div`
+  position: fixed;
+  top: 0;
   width: 100vw;
   background-color: #ffffff;
   height: 50px;
