@@ -4,6 +4,9 @@ import {
   loginStateSaga,
   LOGINSTATE,
   LOGINSTATE_SAGA,
+  MODALSTATE,
+  MODALSTATE_SAGA,
+  modalState,
 } from "../../action/loginCheck";
 
 function* loginStateSagaFunc() {
@@ -12,6 +15,11 @@ function* loginStateSagaFunc() {
 
 function* loginSaga() {
   yield takeEvery(LOGINSTATE_SAGA, loginStateSagaFunc);
+  yield takeEvery(MODALSTATE_SAGA, modalStateSagaFunc);
+}
+
+function* modalStateSagaFunc() {
+  yield put(modalState());
 }
 
 export default loginSaga;
