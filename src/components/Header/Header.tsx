@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, withRouter } from "react-router-dom";
 import { Store } from "../../modules/reducer";
 import * as S from "./styles";
-import { loginStateSaga } from "../../modules/action/loginCheck";
+import {
+  loginStateSaga,
+  modalStateSaga,
+} from "../../modules/action/loginCheck";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -11,18 +14,30 @@ const Header = () => {
   const loginCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.loginCheck
   );
-
+  const modalCheck: boolean = useSelector(
+    (store: Store) => store.loginCheck.modalCheck
+  );
   const [name, setName] = useState<string>("이지수");
+
   const onMyPageClick = () => {
     history.push("/mypage");
     console.log(1);
+  };
+  const onLoginCheck = () => {
+    if (!loginCheck) {
+      dispatch(modalStateSaga());
+      console.log(modalCheck);
+    } else dispatch(loginStateSaga());
+  };
+  const onGoHome = () => {
+    history.push("/");
   };
   return (
     <>
       <S.MainDiv>
         <S.Main>
           <S.MainLeft>
-            <S.Title>Dmeista</S.Title>
+            <S.Title onClick={onGoHome}>Dmeista</S.Title>
             <S.Input>
               <input placeholder="태그로 검색하세요! ex) #대마고" />
             </S.Input>
@@ -31,7 +46,7 @@ const Header = () => {
             <S.TextDiv loginCheck={loginCheck}>
               {!loginCheck ? (
                 <>
-                  <div onClick={() => dispatch(loginStateSaga())}>로그인</div>
+                  <div onClick={onLoginCheck}>로그인</div>
                   <div>&nbsp;|&nbsp;</div>
                   <div>회원가입</div>
                 </>
