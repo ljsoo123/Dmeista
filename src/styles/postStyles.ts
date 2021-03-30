@@ -15,6 +15,9 @@ export const Main = styled.div`
 
 export const PostDiv = styled.div`
   width: 50%;
+  @media (max-width: 600px) {
+    width: 75%;
+  }
   height: 100%;
   padding-top: 30px;
   padding-left: 50px;
@@ -108,14 +111,14 @@ export const IconDiv = styled.div<Props>`
   border-radius: 17px;
   padding-left: 30px;
   padding-right: 30px;
-  width: 38%
-    ${(props) =>
-      props.hover &&
-      css`
-        overflow: hidden;
-        animation: ${buttonAnimation};
-        animation-duration: 0.5s;
-      `};
+  width: 38%;
+  ${(props) =>
+    props.hover &&
+    css`
+      overflow: hidden;
+      animation: ${buttonAnimation};
+      animation-duration: 0.5s;
+    `};
 `;
 
 export const IconInsideDiv = styled.div`
