@@ -8,13 +8,13 @@ export const Main = styled.div`
 `;
 export const MainDiv = styled.div`
   width: 60%;
+  margin-top: 100px;
   height: 450px;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 0.5px solid #707070;
-  margin-top: 30px;
   @media (max-width: 700px) {
     width: 100%;
   }

@@ -24,10 +24,9 @@ const Header = () => {
     console.log(1);
   };
   const onLoginCheck = () => {
-    if (!loginCheck) {
-      dispatch(modalStateSaga());
-      console.log(modalCheck);
-    } else dispatch(loginStateSaga());
+    dispatch(modalStateSaga());
+    console.log(modalCheck);
+    //dispatch(loginStateSaga());
   };
   const onGoHome = () => {
     history.push("/");
