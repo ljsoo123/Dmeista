@@ -35,7 +35,7 @@ const Main = () => {
   };
   return (
     <>
-      <S.MainDiv loginClick={loginClick}>
+      <S.MainDiv>
         <Login />
         {title.map((now, i: number) => {
           return (
