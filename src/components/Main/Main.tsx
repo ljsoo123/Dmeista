@@ -3,9 +3,13 @@ import Post from "./Post/Post";
 import * as S from "../../styles/MainStyle";
 import * as Type from "../../../types";
 import { useHistory } from "react-router-dom";
+import Login from "../Login/Login";
+import { useSelector } from "react-redux";
+import { Store } from "../../modules/reducer";
 
 const Main = () => {
   const history = useHistory();
+  const loginClick = useSelector((store: Store) => store.loginCheck.modalCheck);
   let postRef = useRef<HTMLDivElement>();
   const [title, setTitle] = useState<Type.titleType[]>(["title", 635]);
   const [nickname, setNickname] = useState<Type.nicknameType[]>([
@@ -31,7 +35,8 @@ const Main = () => {
   };
   return (
     <>
-      <S.MainDiv>
+      <S.MainDiv loginClick={loginClick}>
+        <Login />
         {title.map((now, i: number) => {
           return (
             <Post
