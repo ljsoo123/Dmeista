@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="80" viewBox="0 0 250 80">
+  <g id="그룹_15" data-name="그룹 15" transform="translate(-1633 -80)">
+    <rect id="사각형_24" data-name="사각형 24" width="250" height="80" transform="translate(1633 80)" fill="#ff5a5a"/>
+    <text id="인증번호가_잘못되었습니다" data-name="인증번호가 잘못되었습니다" transform="translate(1658.533 114.5)" fill="#fff" font-size="15" font-family="MalgunGothic, Malgun Gothic" letter-spacing="-0.05em"><tspan x="0" y="0">인증번호가</tspan><tspan y="0" font-family="SegoeUI, Segoe UI"> </tspan><tspan y="0">잘못되었습니다</tspan></text>
+    <text id="다시_확인해주세요" data-name="다시 확인해주세요" transform="translate(1658.533 137.5)" fill="#fff" font-size="15" font-family="MalgunGothic, Malgun Gothic" letter-spacing="-0.05em"><tspan x="0" y="0">다시</tspan><tspan y="0" font-family="SegoeUI, Segoe UI"> </tspan><tspan y="0">확인해주세요</tspan></text>
+    <path id="Icon_metro-cancel" data-name="Icon metro-cancel" d="M17.995,1.928A15.424,15.424,0,1,0,33.419,17.352,15.424,15.424,0,0,0,17.995,1.928Zm0,27.956A12.532,12.532,0,1,1,30.527,17.352,12.532,12.532,0,0,1,17.995,29.885ZM22.815,9.64l-4.82,4.82-4.82-4.82-2.892,2.892,4.82,4.82-4.82,4.82,2.892,2.892,4.82-4.82,4.82,4.82,2.892-2.892-4.82-4.82,4.82-4.82Z" transform="translate(1824.047 105.148)" fill="#fff"/>
+  </g>
+</svg>
