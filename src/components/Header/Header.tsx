@@ -6,6 +6,7 @@ import * as S from "./styles";
 import {
   loginStateSaga,
   modalStateSaga,
+  signUpStateSaga,
 } from "../../modules/action/loginCheck";
 
 const Header = () => {
@@ -16,6 +17,9 @@ const Header = () => {
   );
   const modalCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.modalCheck
+  );
+  const signUpCheck: boolean = useSelector(
+    (store: Store) => store.loginCheck.signUpCheck
   );
   const [name, setName] = useState<string>("이지수");
 
@@ -30,6 +34,9 @@ const Header = () => {
   };
   const onGoHome = () => {
     history.push("/");
+  };
+  const onSignUpClick = () => {
+    dispatch(signUpStateSaga());
   };
   return (
     <>
@@ -47,7 +54,7 @@ const Header = () => {
                 <>
                   <div onClick={onLoginCheck}>로그인</div>
                   <div>&nbsp;|&nbsp;</div>
-                  <div>회원가입</div>
+                  <div onClick={onSignUpClick}>회원가입</div>
                 </>
               ) : (
                 <>
