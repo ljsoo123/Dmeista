@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="80" viewBox="0 0 250 80">
+  <g id="그룹_15" data-name="그룹 15" transform="translate(-1633 -80)">
+    <rect id="사각형_24" data-name="사각형 24" width="250" height="80" transform="translate(1633 80)" fill="#38d988"/>
+    <text id="인증번호를_보냈습니다" data-name="인증번호를 보냈습니다" transform="translate(1658.533 114.5)" fill="#242424" font-size="15" font-family="MalgunGothic, Malgun Gothic" letter-spacing="-0.05em"><tspan x="0" y="0">인증번호를</tspan><tspan y="0" font-family="SegoeUI, Segoe UI"> </tspan><tspan y="0">보냈습니다</tspan></text>
+    <text id="메일함을_확인해_주세요" data-name="메일함을 확인해 주세요" transform="translate(1658.533 137.5)" fill="#242424" font-size="15" font-family="MalgunGothic, Malgun Gothic" letter-spacing="-0.05em"><tspan x="0" y="0">메일함을</tspan><tspan y="0" font-family="SegoeUI, Segoe UI"> </tspan><tspan y="0">확인해</tspan><tspan y="0" font-family="SegoeUI, Segoe UI"> </tspan><tspan y="0">주세요</tspan></text>
+    <path id="Icon_awesome-check-circle" data-name="Icon awesome-check-circle" d="M31.412,15.988A15.425,15.425,0,1,1,15.988.563,15.425,15.425,0,0,1,31.412,15.988ZM14.2,24.155,25.648,12.711a1,1,0,0,0,0-1.407L24.24,9.9a1,1,0,0,0-1.407,0L13.5,19.229,9.142,14.872a1,1,0,0,0-1.407,0L6.327,16.279a1,1,0,0,0,0,1.407L12.8,24.155A1,1,0,0,0,14.2,24.155Z" transform="translate(1826.057 106.518)" fill="#242424"/>
+  </g>
+</svg>
