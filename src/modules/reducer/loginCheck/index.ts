@@ -1,18 +1,22 @@
 import LoginCheckAction, {
   LOGINSTATE,
   MODALSTATE,
+  SIGNUPSTATE,
 } from "../../action/loginCheck";
 import { User } from "../../../../types";
+import SignUp from "../../../components/SignUp/SignUp";
 
 interface LoginState {
   loginCheck: boolean;
   modalCheck: boolean;
   user: User[];
+  signUpCheck: boolean;
 }
 
 export const initialState: LoginState = {
   loginCheck: false,
   modalCheck: false,
+  signUpCheck: false,
   user: [
     {
       nickname: "kangshinhee",
@@ -37,6 +41,12 @@ const loginCheckReducer = (
       return {
         ...state,
         modalCheck: !state.modalCheck,
+      };
+    }
+    case SIGNUPSTATE: {
+      return {
+        ...state,
+        signUpCheck: !state.signUpCheck,
       };
     }
     default: {

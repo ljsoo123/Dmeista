@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import Login from "../Login/Login";
 import { useSelector } from "react-redux";
 import { Store } from "../../modules/reducer";
+import SignUp from "../SignUp/SignUp";
 
 const Main = () => {
   const history = useHistory();
@@ -37,6 +38,7 @@ const Main = () => {
     <>
       <S.MainDiv>
         <Login />
+        <SignUp />
         {title.map((now, i: number) => {
           return (
             <Post
