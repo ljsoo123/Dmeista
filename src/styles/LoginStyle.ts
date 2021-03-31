@@ -7,14 +7,10 @@ export const Main = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  //background-color: rgba(0, 0, 0, 0);
-  //filter: blur(5px);
   opacity: 1;
   height: 100vh;
   top: 0;
   left: 0;
-  //background-color: #1a1a1a;
-  // filter: blur(5px);
   background: #b9b9b978;
   backdrop-filter: blur(2px);
 `;
