@@ -1,18 +1,25 @@
 import React from "react";
 import * as S from "../../styles/MypageStyle";
 import { Store } from "../../modules/reducer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { $CombinedState } from "redux";
 import loginCheckReducer from "../../modules/reducer/loginCheck";
 import { User } from "../../../types";
+import FriendRequest from "./FriendRequest/FriendRequest";
+import { friendStateSaga } from "../../modules/action/loginCheck";
 
 const Mypage = () => {
+  const dispatch = useDispatch();
   const user: User = useSelector((store: Store) => store.loginCheck.user[0]);
   const { email, nickname, createdAt } = user;
   console.log(user);
+  const onFriendClick = () => {
+    dispatch(friendStateSaga());
+  };
   return (
     <>
       <S.Main>
+        <FriendRequest />
         <S.MainDiv>
           <S.TextDiv>
             <S.InnerDiv>
@@ -47,7 +54,9 @@ const Mypage = () => {
                   <S.TitleDiv>
                     친구&nbsp;<S.LightDiv>0</S.LightDiv>
                   </S.TitleDiv>
-                  <S.FriendButtonDiv>친구요청확인</S.FriendButtonDiv>
+                  <S.FriendButtonDiv onClick={onFriendClick}>
+                    친구요청확인
+                  </S.FriendButtonDiv>
                 </S.FlexDiv>
                 <S.BorderDiv />
                 <S.ContentDiv>친구가 없습니다.</S.ContentDiv>

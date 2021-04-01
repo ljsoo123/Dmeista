@@ -5,6 +5,7 @@ export const Main = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
+  z-index: -1;
 `;
 export const MainDiv = styled.div`
   width: 60%;
@@ -21,13 +22,11 @@ export const MainDiv = styled.div`
   padding-top: 50px;
   padding-left: 80px;
   padding-right: 80px;
-  z-index: 0;
 `;
 
 export const TextDiv = styled.div`
   width: 100%;
   height: 100%;
-  z-index: 1;
 `;
 
 export const TitleDiv = styled.div`
