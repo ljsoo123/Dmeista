@@ -10,6 +10,8 @@ import {
   SIGNUPSTATE,
   SIGNUPSTATE_SAGA,
   signUpState,
+  friendState,
+  FRIENDSTATE_SAGA,
 } from "../../action/loginCheck";
 
 function* loginStateSagaFunc() {
@@ -24,10 +26,15 @@ function* signUpStateSagaFunc() {
   yield put(signUpState());
 }
 
+function* friendStateSagaFunc() {
+  yield put(friendState());
+}
+
 function* loginSaga() {
   yield takeEvery(LOGINSTATE_SAGA, loginStateSagaFunc);
   yield takeEvery(MODALSTATE_SAGA, modalStateSagaFunc);
   yield takeEvery(SIGNUPSTATE_SAGA, signUpStateSagaFunc);
+  yield takeEvery(FRIENDSTATE_SAGA, friendStateSagaFunc);
 }
 
 export default loginSaga;
