@@ -12,3 +12,8 @@ export interface User {
   email: string;
   createdAt: string;
 }
+export interface FriendRequest {
+  check: boolean;
+  del: boolean;
+  nickname: string;
+}

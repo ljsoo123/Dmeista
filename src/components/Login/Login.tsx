@@ -25,8 +25,9 @@ const Login = () => {
     dispatch(modalStateSaga());
   };
   const onSignUpClick = () => {
-    console.log("asasd");
-    //dispatch(signUpStateSaga());//
+    //console.log("asasd");
+    dispatch(signUpStateSaga());
+    dispatch(modalStateSaga());
   };
   return (
     <>
