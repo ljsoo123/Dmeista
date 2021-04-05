@@ -14,6 +14,8 @@ export const CHANGEINFO = "CHANGEINFO/CHANGEINFO";
 export const CHANGEINFO_SAGA = "CHANGEINFO/CHANGEINFO_SAGA";
 export const CHANGEPASSWORD = "CHANGEINFO/CHANGEPASSWORD";
 export const CHANGEPASSWORD_SAGA = "CHANGEINFO/CHANGEPASSWORD_SAGA";
+export const CHANGEEMAIL = "CHANGEINFO/CHANGEEMAIL";
+export const CHANGEEMAIL_SAGA = "CHANGEINFO/CHANGEEMAIL_SAGA";
 
 export const loginState = () => ({ type: LOGINSTATE });
 export const loginStateSaga = () => ({ type: LOGINSTATE_SAGA });
@@ -31,6 +33,8 @@ export const changeInfo = () => ({ type: CHANGEINFO });
 export const changeInfoSaga = () => ({ type: CHANGEINFO_SAGA });
 export const changePassword = () => ({ type: CHANGEPASSWORD });
 export const changePasswordSaga = () => ({ type: CHANGEPASSWORD_SAGA });
+export const changeEmail = () => ({ type: CHANGEEMAIL });
+export const changeEmailSaga = () => ({ type: CHANGEEMAIL_SAGA });
 
 type LoginCheckAction = ReturnType<
   | typeof loginState
@@ -41,6 +45,7 @@ type LoginCheckAction = ReturnType<
   | typeof friendDel
   | typeof changeInfo
   | typeof changePassword
+  | typeof changeEmail
 >;
 
 export default LoginCheckAction;
