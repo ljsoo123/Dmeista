@@ -5,6 +5,7 @@ import { Store } from "../../../modules/reducer";
 import {
   changeInfoSaga,
   changePasswordSaga,
+  changeEmailSaga,
 } from "../../../modules/action/loginCheck";
 import cancelLogin from "../../../../image/cancelLogin.svg";
 
@@ -21,6 +22,7 @@ const ChangeInfo = (props: { passwordCheck: boolean }) => {
   };
   const onEmailClick = () => {
     dispatch(changeInfoSaga());
+    dispatch(changeEmailSaga());
   };
   return (
     <>
