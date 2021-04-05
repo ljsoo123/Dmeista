@@ -155,6 +155,7 @@ export const CheckNumBtn = styled.button<Props>`
     css`
       background-color: #707070;
     `}
+  cursor: pointer;
 `;
 
 export const CheckNumBtn2 = styled.button<CheckProps>`
@@ -171,6 +172,7 @@ export const CheckNumBtn2 = styled.button<CheckProps>`
     css`
       background-color: #707070;
     `}
+  cursor: pointer;
 `;
 
 export const CheckNickNameBtn = styled.button`
@@ -182,6 +184,7 @@ export const CheckNickNameBtn = styled.button`
   :focus {
     outline: none;
   }
+  cursor: pointer;
 `;
 
 export const Input = styled.input`
@@ -203,6 +206,7 @@ export const Button = styled.button`
   background-color: #6413f2;
   font-size: 15px;
   border: none;
+  cursor: pointer;
   :focus {
     outline: none;
   }

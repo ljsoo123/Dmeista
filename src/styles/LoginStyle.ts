@@ -133,6 +133,7 @@ export const LoginButton = styled.button`
   :focus {
     outline: none;
   }
+  cursor: pointer;
 `;
 
 export const BottomText = styled.div`

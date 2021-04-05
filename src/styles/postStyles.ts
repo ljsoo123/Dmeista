@@ -101,6 +101,7 @@ export const ButtonDiv = styled.div`
   }
   > button:nth-child(1):nth-last-child(2):hover {
   }
+  cursor: pointer;
 `;
 
 export const IconDiv = styled.div<Props>`

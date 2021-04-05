@@ -121,6 +121,7 @@ export const Button = styled.button<Check>`
   :focus {
     outline: none;
   }
+  cursor: pointer;
 `;
 
 export const Button2 = styled.button<Done>`
@@ -143,6 +144,7 @@ export const Button2 = styled.button<Done>`
       : css`
           background-color: #6413f2;
         `}
+  cursor: pointer;
 `;
 
 export const Input = styled.input`
@@ -168,4 +170,5 @@ export const DoneBtn = styled.button`
   :focus {
     outline: none;
   }
+  cursor: pointer;
 `;

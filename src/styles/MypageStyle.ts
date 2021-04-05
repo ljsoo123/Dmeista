@@ -83,6 +83,7 @@ export const ButtonDiv = styled.div`
   justify-content: center;
   display: flex;
   font-size: 13px;
+  cursor: pointer;
 `;
 
 export const FlexDiv = styled.div`
@@ -100,6 +101,7 @@ export const FriendButtonDiv = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
+  cursor: pointer;
 `;
 
 export const LightDiv = styled.div`

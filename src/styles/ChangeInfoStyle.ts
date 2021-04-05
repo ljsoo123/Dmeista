@@ -72,4 +72,8 @@ export const ChangeButton = styled.button`
   text-align: left;
   height: 60px;
   margin-bottom: 10px;
+  :focus {
+    outline: none;
+  }
+  cursor: pointer;
 `;
