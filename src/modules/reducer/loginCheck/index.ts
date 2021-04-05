@@ -5,6 +5,8 @@ import LoginCheckAction, {
   FRIENDSTATE,
   FRIENDCHECK,
   FRIENDDEL,
+  CHANGEINFO,
+  CHANGEPASSWORD,
 } from "../../action/loginCheck";
 import { User, FriendRequest } from "../../../../types";
 
@@ -14,6 +16,8 @@ interface LoginState {
   user: User[];
   signUpCheck: boolean;
   friendCheck: boolean;
+  changeInfo: boolean;
+  changePassword: boolean;
   friendRequest: FriendRequest[];
 }
 
@@ -22,6 +26,8 @@ export const initialState: LoginState = {
   modalCheck: false,
   signUpCheck: false,
   friendCheck: false,
+  changeInfo: false,
+  changePassword: false,
   user: [
     {
       nickname: "kangshinhee",
@@ -67,6 +73,18 @@ const loginCheckReducer = (
     case FRIENDCHECK: {
       return {
         ...state,
+      };
+    }
+    case CHANGEINFO: {
+      return {
+        ...state,
+        changeInfo: !state.changeInfo,
+      };
+    }
+    case CHANGEPASSWORD: {
+      return {
+        ...state,
+        changePassword: !state.changePassword,
       };
     }
     default: {

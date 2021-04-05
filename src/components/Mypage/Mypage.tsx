@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "../../styles/MypageStyle";
 import { Store } from "../../modules/reducer";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,20 +6,35 @@ import { $CombinedState } from "redux";
 import loginCheckReducer from "../../modules/reducer/loginCheck";
 import { User } from "../../../types";
 import FriendRequest from "./FriendRequest/FriendRequest";
-import { friendStateSaga } from "../../modules/action/loginCheck";
+import {
+  friendStateSaga,
+  changeInfoSaga,
+} from "../../modules/action/loginCheck";
+import ChangeInfo from "./ChangeInfo/ChangeInfo";
+import ChangePassWord from "./ChangeInfo/ChangePassWord";
 
 const Mypage = () => {
   const dispatch = useDispatch();
+  const [passwordCheck, setPasswordCheck] = useState<boolean>(false);
+  const [emailCheck, setEmailCheck] = useState<boolean>(false);
   const user: User = useSelector((store: Store) => store.loginCheck.user[0]);
+  const changeInfo: boolean = useSelector(
+    (store: Store) => store.loginCheck.changeInfo
+  );
   const { email, nickname, createdAt } = user;
   console.log(user);
   const onFriendClick = () => {
     dispatch(friendStateSaga());
   };
+  const onChangeInfoClick = () => {
+    dispatch(changeInfoSaga());
+  };
   return (
     <>
       <S.Main>
         <FriendRequest />
+        <ChangeInfo passwordCheck={passwordCheck} />
+        <ChangePassWord />
         <S.MainDiv>
           <S.TextDiv>
             <S.InnerDiv>
@@ -44,7 +59,9 @@ const Mypage = () => {
               <div>
                 <S.FlexDiv>
                   <S.TitleDiv>최근 작성한 글</S.TitleDiv>
-                  <S.ButtonDiv>정보 수정</S.ButtonDiv>
+                  <S.ButtonDiv onClick={onChangeInfoClick}>
+                    정보 수정
+                  </S.ButtonDiv>
                 </S.FlexDiv>
                 <S.BorderDiv />
                 <S.ContentDiv>최근에 작성한 글이 없습니다.</S.ContentDiv>

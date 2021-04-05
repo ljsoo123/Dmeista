@@ -10,6 +10,10 @@ export const FRIENDCHECK = "REQUESTLIST/FRIENDREQUEST";
 export const FRIENDCHECK_SAGA = "REQUESTLIST/FRIENDREQUEST_SAGA";
 export const FRIENDDEL = "REQUESTLIST/FRIENDDEL";
 export const FRIENDDEL_SAGA = "REQUESTLIST/FRIENDDEL_SAGA";
+export const CHANGEINFO = "CHANGEINFO/CHANGEINFO";
+export const CHANGEINFO_SAGA = "CHANGEINFO/CHANGEINFO_SAGA";
+export const CHANGEPASSWORD = "CHANGEINFO/CHANGEPASSWORD";
+export const CHANGEPASSWORD_SAGA = "CHANGEINFO/CHANGEPASSWORD_SAGA";
 
 export const loginState = () => ({ type: LOGINSTATE });
 export const loginStateSaga = () => ({ type: LOGINSTATE_SAGA });
@@ -23,6 +27,10 @@ export const friendRequest = () => ({ type: FRIENDCHECK });
 export const friendRequestSaga = () => ({ type: FRIENDCHECK_SAGA });
 export const friendDel = () => ({ type: FRIENDDEL });
 export const friendDelSaga = () => ({ type: FRIENDDEL_SAGA });
+export const changeInfo = () => ({ type: CHANGEINFO });
+export const changeInfoSaga = () => ({ type: CHANGEINFO_SAGA });
+export const changePassword = () => ({ type: CHANGEPASSWORD });
+export const changePasswordSaga = () => ({ type: CHANGEPASSWORD_SAGA });
 
 type LoginCheckAction = ReturnType<
   | typeof loginState
@@ -31,6 +39,8 @@ type LoginCheckAction = ReturnType<
   | typeof friendState
   | typeof friendRequest
   | typeof friendDel
+  | typeof changeInfo
+  | typeof changePassword
 >;
 
 export default LoginCheckAction;
