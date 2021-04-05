@@ -12,6 +12,7 @@ import {
 } from "../../modules/action/loginCheck";
 import ChangeInfo from "./ChangeInfo/ChangeInfo";
 import ChangePassWord from "./ChangeInfo/ChangePassWord";
+import ChangeEmail from "./ChangeInfo/ChangeEmail";
 
 const Mypage = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const Mypage = () => {
         <FriendRequest />
         <ChangeInfo passwordCheck={passwordCheck} />
         <ChangePassWord />
+        <ChangeEmail />
         <S.MainDiv>
           <S.TextDiv>
             <S.InnerDiv>
