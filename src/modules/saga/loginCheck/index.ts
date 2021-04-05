@@ -17,6 +17,8 @@ import {
   CHANGEINFO_SAGA,
   changePassword,
   CHANGEPASSWORD_SAGA,
+  changeEmail,
+  CHANGEEMAIL_SAGA,
 } from "../../action/loginCheck";
 
 function* loginStateSagaFunc() {
@@ -43,6 +45,10 @@ function* changePasswordSagaFunc() {
   yield put(changePassword());
 }
 
+function* changeEmailSagaFunc() {
+  yield put(changeEmail());
+}
+
 function* loginSaga() {
   yield takeEvery(LOGINSTATE_SAGA, loginStateSagaFunc);
   yield takeEvery(MODALSTATE_SAGA, modalStateSagaFunc);
@@ -50,6 +56,7 @@ function* loginSaga() {
   yield takeEvery(FRIENDSTATE_SAGA, friendStateSagaFunc);
   yield takeEvery(CHANGEINFO_SAGA, changeInfoSagaFunc);
   yield takeEvery(CHANGEPASSWORD_SAGA, changePasswordSagaFunc);
+  yield takeEvery(CHANGEEMAIL_SAGA, changeEmailSagaFunc);
 }
 
 export default loginSaga;
