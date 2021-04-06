@@ -7,6 +7,7 @@ import {
   loginStateSaga,
   modalStateSaga,
   signUpStateSaga,
+  newPostSaga,
 } from "../../modules/action/loginCheck";
 
 const Header = () => {
@@ -20,6 +21,9 @@ const Header = () => {
   );
   const signUpCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.signUpCheck
+  );
+  const newPostCheck: boolean = useSelector(
+    (store: Store) => store.loginCheck.newPost
   );
   const [name, setName] = useState<string>("이지수");
 
@@ -37,6 +41,9 @@ const Header = () => {
   };
   const onSignUpClick = () => {
     dispatch(signUpStateSaga());
+  };
+  const onNewPostClick = () => {
+    dispatch(newPostSaga());
   };
   return (
     <>
@@ -58,7 +65,7 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <button>새 게시물 작성</button>
+                  <button onClick={onNewPostClick}>새 게시물 작성</button>
                   <div onClick={() => history.push("mypage")}>마이페이지</div>
                   <div>
                     <div>{name}&nbsp;님 안녕하세요</div>
