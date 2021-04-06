@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "../../styles/LoginStyle";
 import loginLogo from "../../../image/loginLogo.svg";
 import cancelLogin from "../../../image/cancelLogin.svg";
