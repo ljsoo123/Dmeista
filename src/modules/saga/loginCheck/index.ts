@@ -1,5 +1,7 @@
 import { put, delay, takeEvery } from "@redux-saga/core/effects";
 import { take } from "redux-saga/effects";
+import axios from "axios";
+import dotenv from "dotenv";
 import {
   loginState,
   loginStateSaga,
@@ -19,7 +21,13 @@ import {
   CHANGEPASSWORD_SAGA,
   changeEmail,
   CHANGEEMAIL_SAGA,
+  newPost,
+  NEWPOST_SAGA,
+  NEWPOST,
 } from "../../action/loginCheck";
+import proc from "redux-saga/lib/proc";
+
+dotenv.config();
 
 function* loginStateSagaFunc() {
   yield put(loginState());
@@ -31,6 +39,16 @@ function* modalStateSagaFunc() {
 
 function* signUpStateSagaFunc() {
   yield put(signUpState());
+  axios
+    .post(`http://3.36.218.14:8080/users`, {
+      email: "ljsoo123@dsm.hs.kr",
+      password: "1234",
+      nickname: "635",
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err.response));
 }
 
 function* friendStateSagaFunc() {
@@ -49,6 +67,10 @@ function* changeEmailSagaFunc() {
   yield put(changeEmail());
 }
 
+function* newPostSagaFunc() {
+  yield put(newPost());
+}
+
 function* loginSaga() {
   yield takeEvery(LOGINSTATE_SAGA, loginStateSagaFunc);
   yield takeEvery(MODALSTATE_SAGA, modalStateSagaFunc);
@@ -57,6 +79,7 @@ function* loginSaga() {
   yield takeEvery(CHANGEINFO_SAGA, changeInfoSagaFunc);
   yield takeEvery(CHANGEPASSWORD_SAGA, changePasswordSagaFunc);
   yield takeEvery(CHANGEEMAIL_SAGA, changeEmailSagaFunc);
+  yield takeEvery(NEWPOST_SAGA, newPostSagaFunc);
 }
 
 export default loginSaga;
