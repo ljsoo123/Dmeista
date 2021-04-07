@@ -9,15 +9,20 @@ import { signUpStateSaga } from "../../modules/action/loginCheck";
 import correctCertification from "../../../image/correctCertification.svg";
 import incorrectCertification from "../../../image/incorrectCertification.svg";
 import sameNickName from "../../../image/sameNickName.svg";
+import axios from "axios";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [nickname, setNickname] = useState<string>("");
   const [certification, setCertification] = useState<boolean>(false);
   const [check, setCheck] = useState<boolean>(false);
   const [checkImg, setCheckImg] = useState<boolean>(false);
   const [confirm, setConfirm] = useState<boolean>(false);
   const [sameCheck, setSameCheck] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [auth, setAuth] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const signUpCheck = useSelector(
     (store: Store) => store.loginCheck.signUpCheck
   );
@@ -37,6 +42,43 @@ const SignUp = () => {
     setCertification(false);
     setCheckImg(false);
     setSameCheck(false);
+    axios
+      .post(`http://3.36.218.14:8080/users`, {
+        email: email,
+        password: password,
+        nickname: nickname,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err.response));
+  };
+  const onEmailClick = () => {
+    setCertification(!certification);
+    axios
+      .post("http://3.36.218.14:8080/users/email/verify/signup", {
+        email: email,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+  const onNicknameCheck = () => {
+    setSameCheck(true);
+    axios
+      .get(`http://3.36.218.14:8080/users/nickname?nickname=${nickname}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err.response));
+  };
+  const onDoneClick = () => {
+    setCheck(true);
+    setConfirm(true);
+    axios
+      .put("http://3.36.218.14:8080/users/email/verify", {
+        email: email,
+        auth_code: auth,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
   return (
     <>
@@ -68,9 +110,12 @@ const SignUp = () => {
               </S.LoginHeader>
               <S.InputDiv>
                 <div>
-                  <S.CheckNumDiv placeholder="인증번호를 받을 이메일을 입력하세요" />
+                  <S.CheckNumDiv
+                    placeholder="인증번호를 받을 이메일을 입력하세요"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                   <S.CheckNumBtn
-                    onClick={() => setCertification(!certification)}
+                    onClick={onEmailClick}
                     certification={certification}
                   >
                     인증
@@ -78,26 +123,26 @@ const SignUp = () => {
                 </div>
                 {certification && (
                   <div>
-                    <S.CheckNumDiv placeholder="인증번호를 입력하세요" />
-                    <S.CheckNumBtn2
-                      onClick={() => {
-                        setCheck(true);
-                        setConfirm(true);
-                      }}
-                      check={check}
-                    >
+                    <S.CheckNumDiv
+                      placeholder="인증번호를 입력하세요"
+                      onChange={(e) => setAuth(e.target.value)}
+                    />
+                    <S.CheckNumBtn2 onClick={onDoneClick} check={check}>
                       확인
                     </S.CheckNumBtn2>
                   </div>
                 )}
-                <S.Input placeholder="password를 입력하세요" type="password" />
+                <S.Input
+                  placeholder="password를 입력하세요"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
                 <div>
-                  <S.CheckNumDiv placeholder="Nickname을 입력하세요" />
-                  <S.CheckNickNameBtn
-                    onClick={() => {
-                      setSameCheck(true);
-                    }}
-                  >
+                  <S.CheckNumDiv
+                    placeholder="Nickname을 입력하세요"
+                    onChange={(e) => setNickname(e.target.value)}
+                  />
+                  <S.CheckNickNameBtn onClick={onNicknameCheck}>
                     중복확인
                   </S.CheckNickNameBtn>
                 </div>
