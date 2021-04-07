@@ -39,16 +39,6 @@ function* modalStateSagaFunc() {
 
 function* signUpStateSagaFunc() {
   yield put(signUpState());
-  axios
-    .post(`http://3.36.218.14:8080/users`, {
-      email: "ljsoo123@dsm.hs.kr",
-      password: "1234",
-      nickname: "635",
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => console.log(err.response));
 }
 
 function* friendStateSagaFunc() {
