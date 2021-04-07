@@ -34,7 +34,7 @@ const Header = () => {
   const onLoginCheck = () => {
     dispatch(modalStateSaga());
     console.log(modalCheck);
-    //dispatch(loginStateSaga());
+    dispatch(loginStateSaga());
   };
   const onGoHome = () => {
     history.push("/");

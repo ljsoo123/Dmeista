@@ -8,10 +8,13 @@ import {
   modalStateSaga,
   loginStateSaga,
   signUpStateSaga,
+  loginEndSaga,
 } from "../../modules/action/loginCheck";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const loginCheck = useSelector((store: Store) => store.loginCheck.modalCheck);
   const signUpCheck = useSelector(
     (store: Store) => store.loginCheck.signUpCheck
@@ -21,6 +24,7 @@ const Login = () => {
     dispatch(modalStateSaga());
   };
   const onLogin = () => {
+    dispatch(loginEndSaga(email, password));
     dispatch(loginStateSaga());
     dispatch(modalStateSaga());
   };
@@ -51,10 +55,14 @@ const Login = () => {
                   </div>
                 </S.LoginHeader>
                 <S.InputDiv>
-                  <S.Input placeholder="Email을 입력하세요"></S.Input>
+                  <S.Input
+                    placeholder="Email을 입력하세요"
+                    onChange={(e) => setEmail(e.target.value)}
+                  ></S.Input>
                   <S.Input
                     placeholder="Password를 입력하세요"
                     type="password"
+                    onChange={(e) => setPassword(e.target.value)}
                   ></S.Input>
                 </S.InputDiv>
                 <S.TextDiv>

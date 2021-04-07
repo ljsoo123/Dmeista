@@ -1,5 +1,7 @@
 export const LOGINSTATE = "header/LOGIN";
 export const LOGINSTATE_SAGA = "header/LOGINSTATE_SAGA";
+export const LOGINEND = "LOGIN/LOGINEND";
+export const LOGINEND_SAGA = "LOGIN/LOGINEND_SAGA";
 export const MODALSTATE = "LOGIN/MODAL";
 export const MODALSTATE_SAGA = "LOGIN/MODAL_SAGA";
 export const SIGNUPSTATE = "SIGNUP/SIGNUPSTATE";
@@ -21,8 +23,20 @@ export const NEWPOST_SAGA = "NEWPOST/NEWPOST_SAGA";
 
 export const loginState = () => ({ type: LOGINSTATE });
 export const loginStateSaga = () => ({ type: LOGINSTATE_SAGA });
+export const loginEnd = () => ({
+  type: LOGINEND,
+});
+export const loginEndSaga = (email: string, password: string) => ({
+  type: LOGINEND_SAGA,
+  payload: {
+    email: email,
+    password: password,
+  },
+});
 export const modalState = () => ({ type: MODALSTATE });
-export const modalStateSaga = () => ({ type: MODALSTATE_SAGA });
+export const modalStateSaga = () => ({
+  type: MODALSTATE_SAGA,
+});
 export const signUpState = () => ({ type: SIGNUPSTATE });
 export const signUpStateSaga = () => ({ type: SIGNUPSTATE_SAGA });
 export const friendState = () => ({ type: FRIENDSTATE });
