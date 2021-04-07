@@ -41,20 +41,19 @@ interface ActionType {
 }
 
 function* loginEndSagaFunc(action: any) {
-  const data = axios
-    .post("http://3.36.218.14:8080/auth", {
+  try {
+    const data = yield call(axios.post, "http://3.36.218.14:8080/auth", {
       email: action.payload.email,
       password: action.payload.password,
-    })
-    .then((res) => {
-      console.log(res);
-      alert("로그인 완료");
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("이메일 혹은 비밀번호가 틀렸습니다.");
     });
-  yield put(loginEnd());
+    alert("로그인 완료");
+    yield put(loginEnd());
+    console.log(data.data.access_token);
+    localStorage.setItem("token", data.data.access_token);
+    console.log(localStorage.getItem("token"));
+  } catch (err) {
+    alert("이메일 혹은 비밀번호가 틀렸습니다.");
+  }
 }
 
 function* modalStateSagaFunc() {
