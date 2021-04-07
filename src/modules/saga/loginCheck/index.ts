@@ -1,4 +1,4 @@
-import { put, delay, takeEvery } from "@redux-saga/core/effects";
+import { put, delay, takeEvery, call } from "@redux-saga/core/effects";
 import { take } from "redux-saga/effects";
 import axios from "axios";
 import dotenv from "dotenv";
@@ -24,6 +24,8 @@ import {
   newPost,
   NEWPOST_SAGA,
   NEWPOST,
+  LOGINEND_SAGA,
+  loginEnd,
 } from "../../action/loginCheck";
 import proc from "redux-saga/lib/proc";
 
@@ -31,6 +33,28 @@ dotenv.config();
 
 function* loginStateSagaFunc() {
   yield put(loginState());
+}
+
+interface ActionType {
+  email: string;
+  password: string;
+}
+
+function* loginEndSagaFunc(action: any) {
+  const data = axios
+    .post("http://3.36.218.14:8080/auth", {
+      email: action.payload.email,
+      password: action.payload.password,
+    })
+    .then((res) => {
+      console.log(res);
+      alert("로그인 완료");
+    })
+    .catch((err) => {
+      console.log(err);
+      alert("이메일 혹은 비밀번호가 틀렸습니다.");
+    });
+  yield put(loginEnd());
 }
 
 function* modalStateSagaFunc() {
@@ -70,6 +94,7 @@ function* loginSaga() {
   yield takeEvery(CHANGEPASSWORD_SAGA, changePasswordSagaFunc);
   yield takeEvery(CHANGEEMAIL_SAGA, changeEmailSagaFunc);
   yield takeEvery(NEWPOST_SAGA, newPostSagaFunc);
+  yield takeEvery(LOGINEND_SAGA, loginEndSagaFunc);
 }
 
 export default loginSaga;
