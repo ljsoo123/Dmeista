@@ -9,8 +9,14 @@ import LoginCheckAction, {
   CHANGEPASSWORD,
   CHANGEEMAIL,
   NEWPOST,
+  LOGINEND,
 } from "../../action/loginCheck";
 import { User, FriendRequest } from "../../../../types";
+
+interface LoginInfo {
+  email: string;
+  password: string;
+}
 
 interface LoginState {
   loginCheck: boolean;
@@ -23,6 +29,7 @@ interface LoginState {
   changeEmail: boolean;
   friendRequest: FriendRequest[];
   newPost: boolean;
+  //loginInfo: LoginInfo;
 }
 
 export const initialState: LoginState = {
@@ -56,6 +63,14 @@ const loginCheckReducer = (
       return {
         ...state,
         loginCheck: !state.loginCheck,
+        //modalCheck: !state.modalCheck,
+      };
+    }
+    case LOGINEND: {
+      return {
+        ...state,
+        loginCheck: !state.loginCheck,
+        //modalCheck: !state.modalCheck,
       };
     }
     case MODALSTATE: {
