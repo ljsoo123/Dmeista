@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "../../styles/MypageStyle";
 import { Store } from "../../modules/reducer";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,11 +13,13 @@ import {
 import ChangeInfo from "./ChangeInfo/ChangeInfo";
 import ChangePassWord from "./ChangeInfo/ChangePassWord";
 import ChangeEmail from "./ChangeInfo/ChangeEmail";
+import axios from "axios";
 
 const Mypage = () => {
   const dispatch = useDispatch();
   const [passwordCheck, setPasswordCheck] = useState<boolean>(false);
   const [emailCheck, setEmailCheck] = useState<boolean>(false);
+  const token = localStorage.getItem("token");
   const user: User = useSelector((store: Store) => store.loginCheck.user[0]);
   const changeInfo: boolean = useSelector(
     (store: Store) => store.loginCheck.changeInfo
@@ -30,6 +32,21 @@ const Mypage = () => {
   const onChangeInfoClick = () => {
     dispatch(changeInfoSaga());
   };
+  useEffect(() => {
+    console.log(token);
+    axios
+      .get("http://3.36.218.14:8080/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("nickname", res.data.username);
+        console.log(localStorage.getItem("nickname"));
+      })
+      .catch((err) => console.log(err.response));
+  });
   return (
     <>
       <S.Main>
