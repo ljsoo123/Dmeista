@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from "../../../styles/FriendRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../../modules/reducer";
 import cancelLogin from "../../../../image/cancelLogin.svg";
 import { friendStateSaga } from "../../../modules/action/loginCheck";
 import RequestList from "./RequestList/RequestList";
+import axios from "axios";
 
 const FriendRequest = () => {
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const friendCheck = useSelector(
     (store: Store) => store.loginCheck.friendCheck
@@ -14,6 +16,16 @@ const FriendRequest = () => {
   const onXClick = () => {
     dispatch(friendStateSaga());
   };
+  useEffect(() => {
+    axios
+      .get("http://3.36.218.14:8080/users/friends/request", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  });
   return (
     <>
       {friendCheck && (

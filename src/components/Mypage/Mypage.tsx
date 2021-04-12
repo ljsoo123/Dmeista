@@ -44,6 +44,14 @@ const Mypage = () => {
         console.log(res);
         localStorage.setItem("nickname", res.data.username);
         console.log(localStorage.getItem("nickname"));
+        axios
+          .get("http://3.36.218.14:8080/users/friends", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err.response));
   });
