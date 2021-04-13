@@ -10,8 +10,10 @@ import LoginCheckAction, {
   CHANGEEMAIL,
   NEWPOST,
   LOGINEND,
+  FRIENDREQUESTLIST,
+  FRIENDREQUESTLIST_SAGA,
 } from "../../action/loginCheck";
-import { User, FriendRequest } from "../../../../types";
+import { User } from "../../../../types";
 
 interface LoginInfo {
   email: string;
@@ -27,7 +29,7 @@ interface LoginState {
   changeInfo: boolean;
   changePassword: boolean;
   changeEmail: boolean;
-  friendRequest: FriendRequest[];
+  friendRequest: string[];
   newPost: boolean;
   //loginInfo: LoginInfo;
 }
@@ -48,17 +50,20 @@ export const initialState: LoginState = {
       createdAt: "2020-12-15",
     },
   ],
-  friendRequest: [
-    { check: false, del: false, nickname: "이지수" },
-    { check: false, del: false, nickname: "강신희" },
-  ],
+  friendRequest: [],
 };
 
 const loginCheckReducer = (
   state: LoginState = initialState,
-  action: LoginCheckAction
+  action: any
 ): LoginState => {
   switch (action.type) {
+    case FRIENDREQUESTLIST: {
+      return {
+        ...state,
+        friendRequest: [...state.friendRequest, action.payload.data],
+      };
+    }
     case LOGINSTATE: {
       return {
         ...state,
