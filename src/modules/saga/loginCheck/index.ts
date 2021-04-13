@@ -26,13 +26,36 @@ import {
   NEWPOST,
   LOGINEND_SAGA,
   loginEnd,
+  friendRequestList,
+  FRIENDREQUESTLIST_SAGA,
+  FRIENDREQUESTLIST,
 } from "../../action/loginCheck";
 import proc from "redux-saga/lib/proc";
+import { initialState } from "../../reducer/loginCheck";
 
+const token = localStorage.getItem("token");
 dotenv.config();
 
 function* loginStateSagaFunc() {
   yield put(loginState());
+}
+
+function* friendRequestListSagaFunc() {
+  try {
+    const data = yield call(
+      axios.get,
+      "http://3.36.218.14:8080/users/friends/request",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(1111);
+    yield put(friendRequestList(data.data.application_responses));
+  } catch (err) {
+    console.log(err.response);
+  }
 }
 
 interface ActionType {
@@ -46,6 +69,7 @@ function* loginEndSagaFunc(action: any) {
       email: action.payload.email,
       password: action.payload.password,
     });
+    console.log(data);
     alert("로그인 완료");
     yield put(loginEnd());
     console.log(data.data.access_token);
@@ -53,6 +77,7 @@ function* loginEndSagaFunc(action: any) {
     console.log(localStorage.getItem("token"));
   } catch (err) {
     alert("이메일 혹은 비밀번호가 틀렸습니다.");
+    console.log(err);
   }
 }
 
@@ -94,6 +119,7 @@ function* loginSaga() {
   yield takeEvery(CHANGEEMAIL_SAGA, changeEmailSagaFunc);
   yield takeEvery(NEWPOST_SAGA, newPostSagaFunc);
   yield takeEvery(LOGINEND_SAGA, loginEndSagaFunc);
+  yield takeEvery(FRIENDREQUESTLIST_SAGA, friendRequestListSagaFunc);
 }
 
 export default loginSaga;

@@ -6,6 +6,7 @@ import cancelLogin from "../../../../image/cancelLogin.svg";
 import { friendStateSaga } from "../../../modules/action/loginCheck";
 import RequestList from "./RequestList/RequestList";
 import axios from "axios";
+import { friendRequestListSaga } from "../../../modules/action/loginCheck";
 
 const FriendRequest = () => {
   const token = localStorage.getItem("token");
@@ -16,16 +17,6 @@ const FriendRequest = () => {
   const onXClick = () => {
     dispatch(friendStateSaga());
   };
-  useEffect(() => {
-    axios
-      .get("http://3.36.218.14:8080/users/friends/request", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  });
   return (
     <>
       {friendCheck && (

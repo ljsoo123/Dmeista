@@ -105,6 +105,14 @@ export const ImageBtn = styled.button`
   color: white;
   background-color: #242424;
   border: none;
+  > input {
+    width: 100%;
+    height: 100%;
+  }
+  > input > button {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const ImageTag = styled.input`
@@ -118,4 +126,27 @@ export const ImageTag = styled.input`
   :focus {
     outline: none;
   }
+`;
+
+export const ButtonDiv = styled.div`
+  width: calc(100% + 22px);
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const CancelBtn = styled.button`
+  color: white;
+  background-color: #707070;
+  border: 0.5px solid #707070;
+  height: 30px;
+  width: 108px;
+`;
+
+export const WriteDiv = styled.button`
+  color: white;
+  background-color: #6413f2;
+  border: 0.5px solid #6413f2;
+  height: 30px;
+  margin-left: 15px;
+  width: 108px;
 `;

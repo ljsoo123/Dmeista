@@ -20,6 +20,8 @@ export const CHANGEEMAIL = "CHANGEINFO/CHANGEEMAIL";
 export const CHANGEEMAIL_SAGA = "CHANGEINFO/CHANGEEMAIL_SAGA";
 export const NEWPOST = "NEWPOST/NEWPOST";
 export const NEWPOST_SAGA = "NEWPOST/NEWPOST_SAGA";
+export const FRIENDREQUESTLIST = "FRIENDREQUEST/FRIENDREQUESTLIST";
+export const FRIENDREQUESTLIST_SAGA = "FRIENDREQUEST/FRIENDREQUESTLIST_SAGA";
 
 export const loginState = () => ({ type: LOGINSTATE });
 export const loginStateSaga = () => ({ type: LOGINSTATE_SAGA });
@@ -53,6 +55,11 @@ export const changeEmail = () => ({ type: CHANGEEMAIL });
 export const changeEmailSaga = () => ({ type: CHANGEEMAIL_SAGA });
 export const newPost = () => ({ type: NEWPOST });
 export const newPostSaga = () => ({ type: NEWPOST_SAGA });
+export const friendRequestList = (data: string[]) => ({
+  type: FRIENDREQUESTLIST,
+  payload: data,
+});
+export const friendRequestListSaga = () => ({ type: FRIENDREQUESTLIST_SAGA });
 
 type LoginCheckAction = ReturnType<
   | typeof loginState
@@ -65,6 +72,7 @@ type LoginCheckAction = ReturnType<
   | typeof changePassword
   | typeof changeEmail
   | typeof newPost
+  | typeof friendRequestList
 >;
 
 export default LoginCheckAction;

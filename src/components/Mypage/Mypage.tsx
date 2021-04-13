@@ -9,6 +9,7 @@ import FriendRequest from "./FriendRequest/FriendRequest";
 import {
   friendStateSaga,
   changeInfoSaga,
+  friendRequestListSaga,
 } from "../../modules/action/loginCheck";
 import ChangeInfo from "./ChangeInfo/ChangeInfo";
 import ChangePassWord from "./ChangeInfo/ChangePassWord";
@@ -19,7 +20,7 @@ const Mypage = () => {
   const dispatch = useDispatch();
   const [passwordCheck, setPasswordCheck] = useState<boolean>(false);
   const [emailCheck, setEmailCheck] = useState<boolean>(false);
-  const token = localStorage.getItem("token");
+  const token: string = localStorage.getItem("token");
   const user: User = useSelector((store: Store) => store.loginCheck.user[0]);
   const changeInfo: boolean = useSelector(
     (store: Store) => store.loginCheck.changeInfo
@@ -28,6 +29,7 @@ const Mypage = () => {
   console.log(user);
   const onFriendClick = () => {
     dispatch(friendStateSaga());
+    dispatch(friendRequestListSaga());
   };
   const onChangeInfoClick = () => {
     dispatch(changeInfoSaga());
@@ -54,7 +56,7 @@ const Mypage = () => {
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err.response));
-  });
+  }, []);
   return (
     <>
       <S.Main>
