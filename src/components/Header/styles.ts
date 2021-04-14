@@ -70,7 +70,7 @@ export const Input = styled.div`
 `;
 
 interface Props {
-  loginCheck: boolean;
+  token: string;
 }
 
 export const TextDiv = styled.div<Props>`
@@ -80,7 +80,7 @@ export const TextDiv = styled.div<Props>`
   align-items: center;
 
   ${(props) =>
-    props.loginCheck
+    props.token
       ? css`
           @media (min-width: 1200px) {
             width: 500px;

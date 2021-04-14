@@ -31,7 +31,6 @@ interface LoginState {
   changeEmail: boolean;
   friendRequest: string[];
   newPost: boolean;
-  //loginInfo: LoginInfo;
 }
 
 export const initialState: LoginState = {

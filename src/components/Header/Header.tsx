@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, withRouter } from "react-router-dom";
 import { Store } from "../../modules/reducer";
@@ -9,13 +9,16 @@ import {
   signUpStateSaga,
   newPostSaga,
 } from "../../modules/action/loginCheck";
+import * as T from "../../../types";
 
 const Header = () => {
   const dispatch = useDispatch();
   var history = useHistory();
-  const loginCheck: boolean = useSelector(
+  var loginCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.loginCheck
   );
+  //const userInfo = useSelector((store: Store) => store.loginCheck.myInfo);
+  const token = localStorage.getItem("token");
   const modalCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.modalCheck
   );
@@ -25,7 +28,7 @@ const Header = () => {
   const newPostCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.newPost
   );
-  const [name, setName] = useState<string>("이지수");
+  const [name, setName] = useState<any>("");
 
   const onMyPageClick = () => {
     history.push("/mypage");
@@ -34,7 +37,7 @@ const Header = () => {
   const onLoginCheck = () => {
     dispatch(modalStateSaga());
     console.log(modalCheck);
-    dispatch(loginStateSaga());
+    // dispatch(loginStateSaga());
   };
   const onGoHome = () => {
     history.push("/");
@@ -45,6 +48,14 @@ const Header = () => {
   const onNewPostClick = () => {
     dispatch(newPostSaga());
   };
+  const onLogOutClick = () => {
+    dispatch(loginStateSaga());
+    window.localStorage.clear();
+  };
+  useEffect(() => {
+    setName(localStorage.getItem("userName"));
+    if (localStorage.getItem("token")) loginCheck = false;
+  });
   return (
     <>
       <S.MainDiv>
@@ -56,8 +67,8 @@ const Header = () => {
             </S.Input>
           </S.MainLeft>
           <S.MainRight>
-            <S.TextDiv loginCheck={loginCheck}>
-              {!loginCheck ? (
+            <S.TextDiv token={token}>
+              {!token ? (
                 <>
                   <div onClick={onLoginCheck}>로그인</div>
                   <div>&nbsp;|&nbsp;</div>
@@ -70,9 +81,7 @@ const Header = () => {
                   <div>
                     <div>{name}&nbsp;님 안녕하세요</div>
                     <div>&nbsp;|&nbsp;</div>
-                    <div onClick={() => dispatch(loginStateSaga())}>
-                      로그아웃
-                    </div>
+                    <div onClick={onLogOutClick}>로그아웃</div>
                   </div>
                 </>
               )}

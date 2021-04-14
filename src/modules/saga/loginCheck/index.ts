@@ -34,6 +34,7 @@ import proc from "redux-saga/lib/proc";
 import { initialState } from "../../reducer/loginCheck";
 
 const token = localStorage.getItem("token");
+const userInfo = localStorage.getItem("userInfo");
 dotenv.config();
 
 function* loginStateSagaFunc() {
@@ -72,12 +73,25 @@ function* loginEndSagaFunc(action: any) {
     console.log(data);
     alert("로그인 완료");
     yield put(loginEnd());
-    console.log(data.data.access_token);
+    //console.log(data.data.access_token);
     localStorage.setItem("token", data.data.access_token);
-    console.log(localStorage.getItem("token"));
+    //console.log(localStorage.getItem("token"));
+    try {
+      const userData = yield call(axios.get, "http://3.36.218.14:8080/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(userData);
+      localStorage.setItem("userName", userData.data.username);
+      // localStorage.setItem("userInfo", JSON.stringify(userData.data));
+      yield put(loginState());
+    } catch (err) {
+      console.log(err.response);
+    }
   } catch (err) {
     alert("이메일 혹은 비밀번호가 틀렸습니다.");
-    console.log(err);
+    console.log(err.response);
   }
 }
 
