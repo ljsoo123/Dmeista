@@ -12,3 +12,9 @@ export interface User {
   email: string;
   createdAt: string;
 }
+export interface userInfo {
+  username: string;
+  email: string;
+  createdAt: string;
+  post_list: object;
+}
