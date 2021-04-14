@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "../../styles/LoginStyle";
 import loginLogo from "../../../image/loginLogo.svg";
 import cancelLogin from "../../../image/cancelLogin.svg";
@@ -9,16 +9,19 @@ import {
   loginStateSaga,
   signUpStateSaga,
   loginEndSaga,
+  loginEnd,
 } from "../../modules/action/loginCheck";
 
 const Login = () => {
   const dispatch = useDispatch();
+  //const userInfo = useSelector((store: Store) => store.loginCheck.myInfo);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const loginCheck = useSelector((store: Store) => store.loginCheck.modalCheck);
   const signUpCheck = useSelector(
     (store: Store) => store.loginCheck.signUpCheck
   );
+
   const onXClick = () => {
     console.log("x");
     dispatch(modalStateSaga());
