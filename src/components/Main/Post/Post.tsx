@@ -27,7 +27,7 @@ const Post = (props: {
     id,
     onClick,
   } = props;
-
+  const token = localStorage.getItem("token");
   const loginCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.loginCheck
   );
@@ -59,7 +59,7 @@ const Post = (props: {
             <div>공감수&nbsp;{like}</div>
           </S.BottomText>
           <S.ButtonDiv>
-            {loginCheck &&
+            {token &&
               (!hover ? (
                 <button
                   onMouseEnter={() => {
