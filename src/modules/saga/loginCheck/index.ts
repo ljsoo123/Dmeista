@@ -34,6 +34,7 @@ import proc from "redux-saga/lib/proc";
 import { initialState } from "../../reducer/loginCheck";
 
 const token = localStorage.getItem("token");
+const refresh_token = localStorage.getItem("refresh-token");
 const userInfo = localStorage.getItem("userInfo");
 dotenv.config();
 
@@ -52,7 +53,6 @@ function* friendRequestListSagaFunc() {
         },
       }
     );
-    console.log(1111);
     yield put(friendRequestList(data.data.application_responses));
   } catch (err) {
     console.log(err.response);
@@ -75,6 +75,7 @@ function* loginEndSagaFunc(action: any) {
     yield put(loginEnd());
     //console.log(data.data.access_token);
     localStorage.setItem("token", data.data.access_token);
+    localStorage.setItem("refresh-token", data.data.refresh_token);
     //console.log(localStorage.getItem("token"));
     try {
       const userData = yield call(axios.get, "http://3.36.218.14:8080/users", {
@@ -84,9 +85,24 @@ function* loginEndSagaFunc(action: any) {
       });
       console.log(userData);
       localStorage.setItem("userName", userData.data.username);
-      // localStorage.setItem("userInfo", JSON.stringify(userData.data));
       yield put(loginState());
     } catch (err) {
+      if (err.data.status == 401) {
+        try {
+          const refreshToken = yield call(
+            axios.put,
+            "http://3.36.218.14:8080/auth",
+            {
+              headers: {
+                "X-Refresh-Token": refresh_token,
+              },
+            }
+          );
+          console.log(refreshToken);
+        } catch (err) {
+          console.log(err);
+        }
+      }
       console.log(err.response);
     }
   } catch (err) {
