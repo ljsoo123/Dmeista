@@ -22,7 +22,7 @@ export const MainDiv = styled.div`
   }
   @media (max-width: 600px) {
   }
-  height: 550px;
+  height: 600px;
   background-color: white;
   border: 0.5px solid #707070;
   justify-content: center;
@@ -91,6 +91,13 @@ export const ImageContent = styled.div`
   width: 49%;
   border: 0.5px solid #707070;
   display: flex;
+  > div {
+    height: 34px;
+    border-bottom: 0.5px solid #707070;
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
 `;
 
 export const TagContent = styled.input`
@@ -108,21 +115,42 @@ export const ImageBtn = styled.button`
   > input {
     width: 100%;
     height: 100%;
+    display: none;
   }
   > input > button {
     width: 100%;
     height: 100%;
   }
+  :focus {
+    outline: none;
+  }
+  cursor: pointer;
+  @media (max-width: 1200px) {
+    font-size: 10px;
+  }
+`;
+
+export const fileInput = styled.input`
+  width: 25%;
+  height: 34px;
+  color: white;
+  background-color: #242424;
+  display: none;
 `;
 
 export const ImageTag = styled.input`
   border-bottom: 0.5px solid #707070;
   text-align: center;
-  width: 75%;
-  height: 31px;
+  //width: 75%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  //height: 31px;
   border-top: none;
   border-left: none;
   border-right: none;
+  justify-content: center;
+  margin-left: 20px;
   :focus {
     outline: none;
   }
@@ -132,6 +160,7 @@ export const ButtonDiv = styled.div`
   width: calc(100% + 22px);
   display: flex;
   justify-content: flex-end;
+  margin-top: 35px;
 `;
 
 export const CancelBtn = styled.button`
@@ -140,6 +169,7 @@ export const CancelBtn = styled.button`
   border: 0.5px solid #707070;
   height: 30px;
   width: 108px;
+  cursor: pointer;
 `;
 
 export const WriteDiv = styled.button`
@@ -149,4 +179,14 @@ export const WriteDiv = styled.button`
   height: 30px;
   margin-left: 15px;
   width: 108px;
+  cursor: pointer;
+`;
+
+export const Text = styled.div`
+  width: 70%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  height: 34px;
+  line-height: 34px;
 `;
