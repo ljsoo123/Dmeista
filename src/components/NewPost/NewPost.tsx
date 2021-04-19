@@ -107,7 +107,7 @@ const NewPost = () => {
                   </div>
                 </S.ImageContent>
                 <S.TagContent
-                  placeholder="태그를 추가해 주세요"
+                  placeholder="태그를 추가해 주세요 ex) #태그"
                   onChange={(e) => setTags(e.target.value)}
                 />
               </S.FlexDiv>
