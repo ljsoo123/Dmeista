@@ -1,9 +1,10 @@
-import React, { useRef, useState, MutableRefObject } from "react";
+import React, { useRef, useState, MutableRefObject, useEffect } from "react";
 import { useSelector } from "react-redux";
 import * as S from "../../../styles/postStyles";
 import * as Type from "../../../../types";
 import { Store } from "../../../modules/reducer";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Post = (props: {
   postTitle: Type.titleType;
@@ -89,6 +90,10 @@ const Post = (props: {
             <button
               onClick={() => {
                 onClick(id);
+                axios
+                  .get(`http://3.36.218.14:8080/posts/${id}`)
+                  .then((res) => console.log(res))
+                  .catch((err) => console.log(err));
               }}
             >
               게시물 보기

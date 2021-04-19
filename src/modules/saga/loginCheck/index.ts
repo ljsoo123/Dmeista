@@ -74,8 +74,8 @@ function* loginEndSagaFunc(action: any) {
     alert("로그인 완료");
     yield put(loginEnd());
     //console.log(data.data.access_token);
-    localStorage.setItem("token", data.data.access_token);
-    localStorage.setItem("refresh-token", data.data.refresh_token);
+    yield localStorage.setItem("token", data.data.access_token);
+    yield localStorage.setItem("refresh-token", data.data.refresh_token);
     //console.log(localStorage.getItem("token"));
     try {
       const userData = yield call(axios.get, "http://3.36.218.14:8080/users", {
@@ -87,6 +87,7 @@ function* loginEndSagaFunc(action: any) {
       localStorage.setItem("userName", userData.data.username);
       yield put(loginState());
     } catch (err) {
+      console.log(err.response);
       if (err.data.status == 401) {
         try {
           const refreshToken = yield call(
@@ -100,13 +101,14 @@ function* loginEndSagaFunc(action: any) {
           );
           console.log(refreshToken);
         } catch (err) {
-          console.log(err);
+          console.log(err.response);
         }
       }
       console.log(err.response);
     }
   } catch (err) {
     alert("이메일 혹은 비밀번호가 틀렸습니다.");
+    window.localStorage.clear();
     console.log(err.response);
   }
 }

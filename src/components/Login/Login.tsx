@@ -61,11 +61,17 @@ const Login = () => {
                   <S.Input
                     placeholder="Email을 입력하세요"
                     onChange={(e) => setEmail(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key == "Enter") onLogin();
+                    }}
                   ></S.Input>
                   <S.Input
                     placeholder="Password를 입력하세요"
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key == "Enter") onLogin();
+                    }}
                   ></S.Input>
                 </S.InputDiv>
                 <S.TextDiv>
