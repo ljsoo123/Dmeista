@@ -33,9 +33,6 @@ import {
 import proc from "redux-saga/lib/proc";
 import { initialState } from "../../reducer/loginCheck";
 
-const token = localStorage.getItem("token");
-const refresh_token = localStorage.getItem("refresh-token");
-const userInfo = localStorage.getItem("userInfo");
 dotenv.config();
 
 function* loginStateSagaFunc() {
@@ -44,6 +41,7 @@ function* loginStateSagaFunc() {
 
 function* friendRequestListSagaFunc() {
   try {
+    const token = localStorage.getItem("token");
     const data = yield call(
       axios.get,
       "http://3.36.218.14:8080/users/friends/request",
@@ -63,51 +61,55 @@ interface ActionType {
   email: string;
   password: string;
 }
-
 function* loginEndSagaFunc(action: any) {
   try {
     const data = yield call(axios.post, "http://3.36.218.14:8080/auth", {
       email: action.payload.email,
       password: action.payload.password,
     });
-    console.log(data);
     alert("로그인 완료");
     yield put(loginEnd());
-    //console.log(data.data.access_token);
-    yield localStorage.setItem("token", data.data.access_token);
-    yield localStorage.setItem("refresh-token", data.data.refresh_token);
+    console.log();
+    localStorage.setItem("token", data.data.access_token);
+    localStorage.setItem("refresh-token", data.data.refresh_token);
+    const token = localStorage.getItem("token");
+    const refresh_token = localStorage.getItem("refresh-token");
     //console.log(localStorage.getItem("token"));
+    //setTimeout(() => {}, 300);
     try {
       const userData = yield call(axios.get, "http://3.36.218.14:8080/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(1);
       console.log(userData);
       localStorage.setItem("userName", userData.data.username);
-      yield put(loginState());
+      if (localStorage.getItem("userName")) yield put(loginState());
     } catch (err) {
-      console.log(err.response);
-      if (err.data.status == 401) {
+      yield alert("유저 데이터를 불러오지 못했습니다.");
+      if (err.response.status == 401) {
         try {
-          const refreshToken = yield call(
+          yield call(
             axios.put,
             "http://3.36.218.14:8080/auth",
+            {},
             {
               headers: {
                 "X-Refresh-Token": refresh_token,
               },
             }
           );
-          console.log(refreshToken);
         } catch (err) {
+          console.log("reload err");
           console.log(err.response);
         }
       }
+      localStorage.clear();
       console.log(err.response);
     }
   } catch (err) {
-    alert("이메일 혹은 비밀번호가 틀렸습니다.");
+    yield alert("이메일 혹은 비밀번호가 틀렸습니다.");
     window.localStorage.clear();
     console.log(err.response);
   }

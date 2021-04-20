@@ -127,6 +127,7 @@ export const IconInsideDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   > div:hover {
-    transform: scale(1.5);
+    transition: 300ms all;
+    transform: scale(1.4);
   }
 `;
