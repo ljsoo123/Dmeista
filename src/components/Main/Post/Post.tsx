@@ -45,8 +45,13 @@ const Post = (props: {
             <div>
               <S.HashTagDiv>
                 {hashTag.map((now, i: number) => {
-                  if (i !== hashTag.length - 1) return `#${now}, `;
-                  else return `#${now}`;
+                  if (i !== hashTag.length - 1) {
+                    if (now[0] == "#") return `${now}, `;
+                    else return `#${now}, `;
+                  } else {
+                    if (now[0] == "#") return `${now}`;
+                    else return `#${now}`;
+                  }
                 })}
               </S.HashTagDiv>
               <S.TimeDiv>{time}</S.TimeDiv>
