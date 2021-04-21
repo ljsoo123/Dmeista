@@ -44,6 +44,7 @@ export const MainMedia = styled.div`
 `;
 export const Title = styled.div`
   font-size: 20px;
+  cursor: pointer;
 `;
 
 export const Input = styled.div`
@@ -99,6 +100,7 @@ export const TextDiv = styled.div<Props>`
     background-color: white;
     width: 124px;
     height: 32px;
+    cursor: pointer;
   }
   > button:focus {
     outline: none;
@@ -110,4 +112,5 @@ export const TextDiv = styled.div<Props>`
   > div {
     display: flex;
   }
+  cursor: pointer;
 `;
