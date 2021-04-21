@@ -17,7 +17,7 @@ interface ResPosts {
   checked: boolean;
   content: string;
   created_at: string;
-  emoji: string;
+  emoji: any;
   id: number;
   tags: any;
   title: string;
@@ -27,6 +27,7 @@ interface ResPosts {
 
 const Main = () => {
   const history = useHistory();
+  const token = localStorage.getItem("token");
   const refresh_token = localStorage.getItem("refresh-token");
   const [posts, setPosts] = useState<ResPosts[]>([]);
 
@@ -40,12 +41,16 @@ const Main = () => {
         application_responses: ResPosts[];
         total_items: number;
         total_pages: number;
-      }>("http://3.36.218.14:8080/posts")
-      .then(async (res) => {
+      }>("http://3.36.218.14:8080/posts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
         setPosts(res.data.application_responses);
         //console.log(12312312);
         console.log(res);
-        await res.data.application_responses.map((now) => {
+        res.data.application_responses.map((now) => {
           //console.log(now);
           axios
             .get(`http://3.36.218.14:8080/posts/${now.id}/emoji`)
