@@ -16,6 +16,7 @@ const Post = (props: {
   like: Type.likeType;
   onClick: (id: number) => void;
   id: number;
+  emoji: string;
 }) => {
   const {
     postTitle,
@@ -33,6 +34,17 @@ const Post = (props: {
     (store: Store) => store.loginCheck.loginCheck
   );
   const [hover, setHover] = useState<boolean>(false);
+  const onEmojiClick = (e) => {
+    console.log(e.target.id);
+    axios
+      .post(
+        `http://3.36.218.14:8080/posts/${id}/emoji?status=${e.target.id}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err.response));
+  };
   return (
     <S.Main>
       <S.PostDiv>
@@ -82,12 +94,24 @@ const Post = (props: {
                   }}
                 >
                   <S.IconInsideDiv>
-                    <div>&#x1F44D;</div>
-                    <div>❤️</div>
-                    <div>&#x1F601;</div>
-                    <div>&#x1F625;</div>
-                    <div>&#x1F632;</div>
-                    <div>&#x1F621;</div>
+                    <div id="LIKE" onClick={onEmojiClick}>
+                      &#x1F44D;
+                    </div>
+                    <div id="NICE" onClick={onEmojiClick}>
+                      ❤️
+                    </div>
+                    <div id="FUN" onClick={onEmojiClick}>
+                      &#x1F601;
+                    </div>
+                    <div id="SAD" onClick={onEmojiClick}>
+                      &#x1F625;
+                    </div>
+                    <div id="ANGRY" onClick={onEmojiClick}>
+                      &#x1F632;
+                    </div>
+                    <div id="COOL" onClick={onEmojiClick}>
+                      &#x1F621;
+                    </div>
                   </S.IconInsideDiv>
                 </S.IconDiv>
               ))}
