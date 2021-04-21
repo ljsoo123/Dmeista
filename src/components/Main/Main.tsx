@@ -10,26 +10,28 @@ import SignUp from "../SignUp/SignUp";
 import NewPost from "../NewPost/NewPost";
 import axios from "axios";
 import { createGlobalStyle } from "styled-components";
+import PostContent from "./Post/PostContent";
 
 interface ResPosts {
   author: string;
   checked: boolean;
   content: string;
   created_at: string;
-  emoji: number;
+  emoji: string;
   id: number;
   tags: any;
   title: string;
   view: number;
+  emoji_count: number;
 }
 
 const Main = () => {
   const history = useHistory();
-
+  const refresh_token = localStorage.getItem("refresh-token");
   const [posts, setPosts] = useState<ResPosts[]>([]);
 
   const onPostClick = (id: number) => {
-    history.push(`/post/${id}`);
+    //history.push(`/post/${id}`);
   };
   useEffect(() => {
     // return;
@@ -39,10 +41,32 @@ const Main = () => {
         total_items: number;
         total_pages: number;
       }>("http://3.36.218.14:8080/posts")
-      .then((res) => {
+      .then(async (res) => {
         setPosts(res.data.application_responses);
+        //console.log(12312312);
+        console.log(res);
+        await res.data.application_responses.map((now) => {
+          //console.log(now);
+          axios
+            .get(`http://3.36.218.14:8080/posts/${now.id}/emoji`)
+            .then((res) => {})
+            .catch((err) => {
+              //console.log(err.response);
+              if (err.response.status === 401) {
+                axios.put(
+                  "http://3.36.218.14:8080/auth",
+                  {},
+                  {
+                    headers: {
+                      "X-Refresh-Token": refresh_token,
+                    },
+                  }
+                );
+              }
+            });
+        });
       })
-      .catch(() => alert("error"));
+      .catch(() => {});
   }, []);
   return (
     <>
@@ -52,7 +76,17 @@ const Main = () => {
         <NewPost />
         {posts.map(
           (
-            { id, title, tags, emoji, author, content, created_at, view },
+            {
+              id,
+              title,
+              tags,
+              emoji_count,
+              author,
+              content,
+              created_at,
+              view,
+              emoji,
+            },
             i
           ) => {
             const newTag = tags.split(", ");
@@ -64,7 +98,8 @@ const Main = () => {
                 time={created_at}
                 write={content}
                 views={view}
-                like={emoji}
+                like={emoji_count}
+                emoji={emoji}
                 onClick={onPostClick}
                 key={i}
                 id={id}
