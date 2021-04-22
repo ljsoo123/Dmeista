@@ -36,6 +36,10 @@ export const ImageDiv = styled.div`
   background: black;
   width: 50%;
   height: 100%;
+  > img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const ContentDiv = styled.div`
