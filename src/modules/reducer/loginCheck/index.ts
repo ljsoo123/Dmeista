@@ -12,8 +12,10 @@ import LoginCheckAction, {
   LOGINEND,
   FRIENDREQUESTLIST,
   FRIENDREQUESTLIST_SAGA,
+  POSTCONTENT,
+  postContent,
 } from "../../action/loginCheck";
-import { User } from "../../../../types";
+import { User, PostContent } from "../../../../types";
 
 interface LoginInfo {
   email: string;
@@ -31,6 +33,7 @@ interface LoginState {
   changeEmail: boolean;
   friendRequest: string[];
   newPost: boolean;
+  postContent: PostContent;
 }
 
 export const initialState: LoginState = {
@@ -50,6 +53,18 @@ export const initialState: LoginState = {
     },
   ],
   friendRequest: [],
+  postContent: {
+    author: "",
+    comments: [],
+    content: "",
+    created_at: "",
+    emoji: "",
+    emoji_count: 0,
+    images: [],
+    tags: "",
+    title: "",
+    view_count: 0,
+  },
 };
 
 const loginCheckReducer = (
@@ -122,6 +137,24 @@ const loginCheckReducer = (
       return {
         ...state,
         newPost: !state.newPost,
+      };
+    }
+    case POSTCONTENT: {
+      return {
+        ...state,
+        postContent: {
+          ...state.postContent,
+          author: action.payload.data.author,
+          comments: action.payload.data.comments,
+          content: action.payload.data.content,
+          created_at: action.payload.data.created_at,
+          emoji: action.payload.data.emoji,
+          emoji_count: action.payload.data.emoji_count,
+          images: action.payload.data.images,
+          tags: action.payload.data.tags,
+          title: action.payload.data.title,
+          view_count: action.payload.data.view_count,
+        },
       };
     }
     default: {
