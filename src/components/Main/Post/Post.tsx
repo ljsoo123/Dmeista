@@ -28,22 +28,57 @@ const Post = (props: {
     like,
     id,
     onClick,
+    emoji,
   } = props;
   const token = localStorage.getItem("token");
+  const refresh_token = localStorage.getItem("refresh-token");
   const loginCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.loginCheck
   );
+  const emojiObject: Object = {
+    LIKE: "👍",
+    NICE: "❤️",
+    FUN: "😁",
+    SAD: "😥",
+    ANGRY: "😡",
+    COOL: "😮",
+  };
   const [hover, setHover] = useState<boolean>(false);
+  const [emojiValue, setEmojiValue] = useState<string>(emoji);
+  const [emojiCheck, setEmojiCheck] = useState<boolean>(false);
   const onEmojiClick = (e) => {
     console.log(e.target.id);
+    if (!emojiValue) setEmojiValue(e.target.id);
+    else setEmojiValue(null);
     axios
       .post(
         `http://3.36.218.14:8080/posts/${id}/emoji?status=${e.target.id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err.response));
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+        if (err.response.status === 401) {
+          axios
+            .put(
+              "http://3.36.218.14:8080/auth",
+              {},
+              {
+                headers: {
+                  "X-Refresh-Token": refresh_token,
+                },
+              }
+            )
+            .then((res) => console.log(res))
+            .catch((err) => {
+              console.log(err.response);
+              window.localStorage.clear();
+            });
+        }
+      });
   };
   return (
     <S.Main>
@@ -78,42 +113,54 @@ const Post = (props: {
           </S.BottomText>
           <S.ButtonDiv>
             {token &&
-              (!hover ? (
-                <button
-                  onMouseEnter={() => {
-                    setHover((prev) => !prev);
-                  }}
-                >
-                  이모지 추가
-                </button>
+              (!emojiValue ? (
+                !hover ? (
+                  <button
+                    onMouseEnter={() => {
+                      setHover((prev) => !prev);
+                    }}
+                  >
+                    이모지 추가
+                  </button>
+                ) : (
+                  <S.IconDiv
+                    hover={hover}
+                    onMouseLeave={() => {
+                      setHover((prev) => !prev);
+                    }}
+                  >
+                    <S.IconInsideDiv>
+                      <>
+                        <div id="LIKE" onClick={onEmojiClick}>
+                          👍
+                        </div>
+                        <div id="NICE" onClick={onEmojiClick}>
+                          ❤️
+                        </div>
+                        <div id="FUN" onClick={onEmojiClick}>
+                          😁
+                        </div>
+                        <div id="SAD" onClick={onEmojiClick}>
+                          😥
+                        </div>
+                        <div id="ANGRY" onClick={onEmojiClick}>
+                          😡
+                        </div>
+                        <div id="COOL" onClick={onEmojiClick}>
+                          😮
+                        </div>
+                      </>
+                    </S.IconInsideDiv>
+                  </S.IconDiv>
+                )
               ) : (
-                <S.IconDiv
-                  hover={hover}
-                  onMouseLeave={() => {
-                    setHover((prev) => !prev);
-                  }}
-                >
-                  <S.IconInsideDiv>
-                    <div id="LIKE" onClick={onEmojiClick}>
-                      &#x1F44D;
+                <>
+                  <S.EmojiDiv>
+                    <div id={emojiValue} onClick={onEmojiClick}>
+                      {emojiObject[emojiValue]}
                     </div>
-                    <div id="NICE" onClick={onEmojiClick}>
-                      ❤️
-                    </div>
-                    <div id="FUN" onClick={onEmojiClick}>
-                      &#x1F601;
-                    </div>
-                    <div id="SAD" onClick={onEmojiClick}>
-                      &#x1F625;
-                    </div>
-                    <div id="ANGRY" onClick={onEmojiClick}>
-                      &#x1F632;
-                    </div>
-                    <div id="COOL" onClick={onEmojiClick}>
-                      &#x1F621;
-                    </div>
-                  </S.IconInsideDiv>
-                </S.IconDiv>
+                  </S.EmojiDiv>
+                </>
               ))}
 
             <button

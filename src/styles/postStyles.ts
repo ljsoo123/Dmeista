@@ -102,6 +102,11 @@ export const ButtonDiv = styled.div`
   > button:nth-child(1):nth-last-child(2):hover {
   }
   cursor: pointer;
+  > button {
+    @media (max-width: 1200px) {
+      font-size: 10px;
+    }
+  }
 `;
 
 export const IconDiv = styled.div<Props>`
@@ -126,6 +131,19 @@ export const IconInsideDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  > div:hover {
+    transition: 300ms all;
+    transform: scale(1.4);
+  }
+`;
+
+export const EmojiDiv = styled.div`
+  border: 0.5px solid #707070;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 17px;
+  width: 45px;
   > div:hover {
     transition: 300ms all;
     transform: scale(1.4);
