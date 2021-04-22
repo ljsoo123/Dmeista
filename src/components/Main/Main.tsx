@@ -36,42 +36,57 @@ const Main = () => {
   };
   useEffect(() => {
     // return;
-    axios
-      .get<{
-        application_responses: ResPosts[];
-        total_items: number;
-        total_pages: number;
-      }>("http://3.36.218.14:8080/posts", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setPosts(res.data.application_responses);
-        //console.log(12312312);
-        console.log(res);
-        res.data.application_responses.map((now) => {
-          //console.log(now);
-          axios
-            .get(`http://3.36.218.14:8080/posts/${now.id}/emoji`)
-            .then((res) => {})
-            .catch((err) => {
-              //console.log(err.response);
-              if (err.response.status === 401) {
-                axios.put(
-                  "http://3.36.218.14:8080/auth",
-                  {},
-                  {
-                    headers: {
-                      "X-Refresh-Token": refresh_token,
-                    },
-                  }
-                );
-              }
-            });
+    if (token) {
+      axios
+        .get<{
+          application_responses: ResPosts[];
+          total_items: number;
+          total_pages: number;
+        }>("http://3.36.218.14:8080/posts", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setPosts(res.data.application_responses);
+          //console.log(12312312);
+          console.log(res);
+          res.data.application_responses.map((now) => {
+            //console.log(now);
+          });
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            axios
+              .put(
+                "http://3.36.218.14:8080/auth",
+                {},
+                {
+                  headers: {
+                    "X-Refresh-Token": refresh_token,
+                  },
+                }
+              )
+              .then()
+              .catch((err) => {
+                console.log(err.response);
+                localStorage.clear();
+              });
+          }
         });
-      })
-      .catch(() => {});
+    } else {
+      axios
+        .get<{
+          application_responses: ResPosts[];
+          total_items: number;
+          total_pages: number;
+        }>("http://3.36.218.14:8080/posts")
+        .then((res) => {
+          console.log(res);
+          console.log("no");
+          setPosts(res.data.application_responses);
+        });
+    }
   }, []);
   return (
     <>
