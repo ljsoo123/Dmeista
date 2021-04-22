@@ -18,3 +18,15 @@ export interface userInfo {
   createdAt: string;
   post_list: object;
 }
+export interface PostContent {
+  author: string;
+  comments: [];
+  content: string;
+  created_at: string;
+  emoji: string;
+  emoji_count: number;
+  images: [];
+  tags: string;
+  title: string;
+  view_count: number;
+}
