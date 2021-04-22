@@ -1,3 +1,6 @@
+import { idText } from "typescript";
+import { PostContent } from "../../../../types";
+
 export const LOGINSTATE = "header/LOGIN";
 export const LOGINSTATE_SAGA = "header/LOGINSTATE_SAGA";
 export const LOGINEND = "LOGIN/LOGINEND";
@@ -22,6 +25,8 @@ export const NEWPOST = "NEWPOST/NEWPOST";
 export const NEWPOST_SAGA = "NEWPOST/NEWPOST_SAGA";
 export const FRIENDREQUESTLIST = "FRIENDREQUEST/FRIENDREQUESTLIST";
 export const FRIENDREQUESTLIST_SAGA = "FRIENDREQUEST/FRIENDREQUESTLIST_SAGA";
+export const POSTCONTENT = "POSTCONTENT/POSTCONTENT";
+export const POSTCONTENT_SAGA = "POSTCONTENT/POSTCONTENT_SAGA";
 
 export const loginState = () => ({ type: LOGINSTATE });
 export const loginStateSaga = () => ({ type: LOGINSTATE_SAGA });
@@ -60,6 +65,18 @@ export const friendRequestList = (data: string[]) => ({
   payload: data,
 });
 export const friendRequestListSaga = () => ({ type: FRIENDREQUESTLIST_SAGA });
+export const postContent = (data: PostContent) => ({
+  type: POSTCONTENT,
+  payload: {
+    data,
+  },
+});
+export const postContentSaga = (id: number) => ({
+  type: POSTCONTENT_SAGA,
+  payload: {
+    id: id,
+  },
+});
 
 type LoginCheckAction = ReturnType<
   | typeof loginState
@@ -73,6 +90,7 @@ type LoginCheckAction = ReturnType<
   | typeof changeEmail
   | typeof newPost
   | typeof friendRequestList
+  | typeof postContent
 >;
 
 export default LoginCheckAction;
