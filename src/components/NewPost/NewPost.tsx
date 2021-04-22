@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "../../styles/NewPostStyle";
 import { Store } from "../../modules/reducer/index";
@@ -11,37 +11,31 @@ const NewPost = () => {
   const token = localStorage.getItem("token");
   const newPostCheck = useSelector((store: Store) => store.loginCheck.newPost);
   const [autoTag, setAutoTag] = useState<boolean>(false);
-  const [content, setContent] = useState<String>("");
-  const [imageFile, setImageFile] = useState<object[]>([]);
+  const [content, setContent] = useState<string>("");
+  const [imageFile, setImageFile] = useState<File[]>([]);
   const [tags, setTags] = useState<string>("");
   const [title, setTitle] = useState<string>("");
-  const input = document.getElementById("fileInput");
+
   const onXClick = () => {
     dispatch(newPostSaga());
   };
   const onCheckBoxChange = (e) => {
     setAutoTag(e.target.checked);
   };
-  const onInputChange = (e) => {
-    const form = new FormData();
-    form.append("attachedImage", e.target.files[0]);
-    setImageFile([...imageFile, form]);
-    console.log(form);
-    console.log(imageFile);
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file: File = e.target.files[0];
+    setImageFile([...imageFile, file]);
   };
   const onWriteClick = () => {
-    console.log(input);
+    console.log(autoTag, content, tags, title);
+    const form: FormData = new FormData();
+    imageFile.forEach((file) => form.append("imageFile", file));
+
     axios
       .post(
         `http://3.36.218.14:8080/posts?autoTag=${autoTag}&content=${content}&tags=${tags}&title=${title}`,
-        {
-          imageFile: imageFile,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        form,
+        { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
         console.log(res);
@@ -50,10 +44,6 @@ const NewPost = () => {
       })
       .catch((err) => {
         console.log(err.response);
-        console.log(content);
-        console.log(imageFile);
-        console.log(tags);
-        console.log(title);
       });
   };
   const onCancelClick = () => {
@@ -100,7 +90,6 @@ const NewPost = () => {
                     <S.fileInput
                       type="file"
                       accept="image/*"
-                      multiple
                       id="fileInput"
                       onChange={onInputChange}
                     ></S.fileInput>

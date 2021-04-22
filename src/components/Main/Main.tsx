@@ -30,9 +30,10 @@ const Main = () => {
   const token = localStorage.getItem("token");
   const refresh_token = localStorage.getItem("refresh-token");
   const [posts, setPosts] = useState<ResPosts[]>([]);
+  const [postContent, setPostContent] = useState<boolean>(false);
 
   const onPostClick = (id: number) => {
-    //history.push(`/post/${id}`);
+    setPostContent(true);
   };
   useEffect(() => {
     // return;
@@ -91,6 +92,7 @@ const Main = () => {
   return (
     <>
       <S.MainDiv>
+        <PostContent postContent={postContent} />
         <Login />
         <SignUp />
         <NewPost />

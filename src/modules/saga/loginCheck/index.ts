@@ -29,12 +29,13 @@ import {
   friendRequestList,
   FRIENDREQUESTLIST_SAGA,
   FRIENDREQUESTLIST,
+  POSTCONTENT_SAGA,
+  postContent,
 } from "../../action/loginCheck";
 import proc from "redux-saga/lib/proc";
 import { initialState } from "../../reducer/loginCheck";
 
 dotenv.config();
-
 function* loginStateSagaFunc() {
   yield put(loginState());
 }
@@ -143,6 +144,20 @@ function* newPostSagaFunc() {
   yield put(newPost());
 }
 
+function* postContentSagaFunc(action: any) {
+  console.log(action);
+  const data = yield call(
+    axios.get,
+    `http://3.36.218.14:8080/posts/${action.payload.id}`
+  );
+  try {
+    console.log(data);
+    yield put(postContent(data.data));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 function* loginSaga() {
   yield takeEvery(LOGINSTATE_SAGA, loginStateSagaFunc);
   yield takeEvery(MODALSTATE_SAGA, modalStateSagaFunc);
@@ -154,6 +169,7 @@ function* loginSaga() {
   yield takeEvery(NEWPOST_SAGA, newPostSagaFunc);
   yield takeEvery(LOGINEND_SAGA, loginEndSagaFunc);
   yield takeEvery(FRIENDREQUESTLIST_SAGA, friendRequestListSagaFunc);
+  yield takeEvery(POSTCONTENT_SAGA, postContentSagaFunc);
 }
 
 export default loginSaga;
