@@ -15,6 +15,7 @@ import ChangeInfo from "./ChangeInfo/ChangeInfo";
 import ChangePassWord from "./ChangeInfo/ChangePassWord";
 import ChangeEmail from "./ChangeInfo/ChangeEmail";
 import axios from "axios";
+import NewPost from "../NewPost/NewPost";
 
 const Mypage = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Mypage = () => {
   };
   return (
     <>
+      <NewPost />
       <S.Main>
         <FriendRequest />
         <ChangeInfo passwordCheck={passwordCheck} />
