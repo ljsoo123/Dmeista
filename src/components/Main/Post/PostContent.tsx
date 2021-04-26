@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../../modules/reducer/index";
 import axios from "axios";
 import Slider from "./Slider";
+import prev from "../../../../image/prev.svg";
+import next from "../../../../image/next.svg";
 
 const PostContent = (props: { postContent: boolean }) => {
   const { postContent } = props;
@@ -17,8 +19,9 @@ const PostContent = (props: { postContent: boolean }) => {
   const [totalSlide, setTotalSlide] = useState<number>(0);
   useEffect(() => {
     //dispatch(postContentSaga);
+    console.log(data.images.length);
     setTotalSlide(data.images.length);
-    data.images.map((now) => {
+    data.images.forEach((now) => {
       axios
         .get(`http://3.36.218.14:8080/image/${now}`, {
           responseType: "arraybuffer",
@@ -31,7 +34,7 @@ const PostContent = (props: { postContent: boolean }) => {
               ""
             )
           );
-          setImages([...images, `data:;base64,${data}`]);
+          setImages((prev) => [...prev, `data:;base64,${data}`]);
         })
         .catch((err) => console.log(err));
     });
