@@ -1,4 +1,9 @@
 import styled from "styled-components";
+
+interface Circle {
+  number: number;
+}
+
 export const Main = styled.div`
   width: 100vw;
   padding-top: 100px;
@@ -36,6 +41,7 @@ export const ImageDiv = styled.div`
   background: black;
   width: 50%;
   height: 100%;
+  overflow: hidden;
   > img {
     width: 100%;
     height: 100%;
@@ -44,6 +50,17 @@ export const ImageDiv = styled.div`
 
 export const ContentDiv = styled.div`
   background: white;
+  width: 50%;
+  height: 100%;
+`;
+
+export const SliderContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+export const FlexDiv = styled.div`
+  display: flex;
   width: 50%;
   height: 100%;
 `;
