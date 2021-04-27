@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Post from "./Post/Post";
 import * as S from "../../styles/MainStyle";
 import * as Type from "../../../types";
 import { useHistory } from "react-router-dom";
 import Login from "../Login/Login";
-import { useSelector } from "react-redux";
 import { Store } from "../../modules/reducer";
 import SignUp from "../SignUp/SignUp";
 import NewPost from "../NewPost/NewPost";
 import axios from "axios";
 import { createGlobalStyle } from "styled-components";
 import PostContent from "./Post/PostContent";
+import { TagContent } from "../../styles/NewPostStyle";
 
 interface ResPosts {
   author: string;
@@ -31,25 +32,26 @@ const Main = () => {
   const refresh_token = localStorage.getItem("refresh-token");
   const [posts, setPosts] = useState<ResPosts[]>([]);
   const [postContent, setPostContent] = useState<boolean>(false);
-
+  const [pageNum, setPageNum] = useState<number>(0);
+  const searchTag = useSelector((store: Store) => store.loginCheck.search);
   const onPostClick = (id: number) => {
     setPostContent(true);
   };
-  useEffect(() => {
-    // return;
+
+  const getPostFromServer = (token: string, pageNum: number): void => {
     if (token) {
       axios
         .get<{
           application_responses: ResPosts[];
           total_items: number;
           total_pages: number;
-        }>("http://3.36.218.14:8080/posts", {
+        }>(`http://3.36.218.14:8080/posts?size=5&page=${pageNum}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          setPosts(res.data.application_responses);
+          setPosts((prev) => [...prev, ...res.data.application_responses]);
           //console.log(12312312);
           console.log(res);
           res.data.application_responses.map((now) => {
@@ -68,7 +70,10 @@ const Main = () => {
                   },
                 }
               )
-              .then()
+              .then((res) => {
+                localStorage.setItem("token", res.data.access_token);
+                localStorage.setItem("refresh-token", res.data.refresh_token);
+              })
               .catch((err) => {
                 console.log(err.response);
                 localStorage.clear();
@@ -81,18 +86,41 @@ const Main = () => {
           application_responses: ResPosts[];
           total_items: number;
           total_pages: number;
-        }>("http://3.36.218.14:8080/posts")
+        }>(`http://3.36.218.14:8080/posts?size=5&page=${pageNum}`)
         .then((res) => {
           console.log(res);
           console.log("no");
-          setPosts(res.data.application_responses);
-        });
+          setPosts((prev) => [...prev, ...res.data.application_responses]);
+        })
+        .catch((err) => {});
     }
+    //setPageNum(pageNum + 1);
+  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    window.addEventListener("scroll", infiniteScroll, true);
+    console.log("load");
+    return () => {
+      window.removeEventListener("scroll", infiniteScroll);
+    };
   }, []);
+  useEffect(() => {
+    getPostFromServer(token, pageNum);
+  }, [pageNum]);
+
+  const infiniteScroll = () => {
+    let scrollHeight: number = document.documentElement.scrollHeight;
+    let scrollTop: number = document.documentElement.scrollTop;
+    let clientHeight: number = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setPageNum((prev) => prev + 1);
+    }
+  };
+
   return (
     <>
       <S.MainDiv>
-        <PostContent postContent={postContent} />
+        <PostContent postContent={postContent} postChange={setPostContent} />
         <Login />
         <SignUp />
         <NewPost />
