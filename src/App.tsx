@@ -4,6 +4,7 @@ import * as S from "./styles";
 import { BrowserRouter, Route } from "react-router-dom";
 import Main from "./components/Main/Main";
 import Mypage from "./components/Mypage/Mypage";
+import Search from "./components/Main/Post/Search";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Header />
         <Route exact path="/" component={Main} />
         <Route path="/mypage" component={Mypage} />
+        <Route path="/search" component={Search} />
       </BrowserRouter>
     </>
   );
