@@ -9,6 +9,7 @@ import axios from "axios";
 const NewPost = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
+  const refresh_token = localStorage.getItem("refresh-token");
   const newPostCheck = useSelector((store: Store) => store.loginCheck.newPost);
   const [autoTag, setAutoTag] = useState<boolean>(false);
   const [content, setContent] = useState<string>("");
@@ -43,7 +44,17 @@ const NewPost = () => {
         dispatch(newPostSaga());
       })
       .catch((err) => {
-        console.log(err.response);
+        if (err.response.status === 401) {
+          axios.put(
+            "http://3.36.218.14:8080/auth",
+            {},
+            {
+              headers: {
+                "X-Refresh-Token": refresh_token,
+              },
+            }
+          );
+        }
       });
   };
   const onCancelClick = () => {
