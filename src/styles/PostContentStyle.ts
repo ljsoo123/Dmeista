@@ -22,15 +22,8 @@ export const Main = styled.div`
 export const MainDiv = styled.div`
   width: 900px;
   transform: translateY(-25%);
-  @media (max-width: 1200px) {
-    width: 40%;
-  }
-  @media (max-width: 600px) {
-    width: 90%;
-  }
   height: 450px;
   background-color: white;
-  border: 0.5px solid #707070;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -63,4 +56,73 @@ export const FlexDiv = styled.div`
   display: flex;
   width: 50%;
   height: 100%;
+`;
+
+export const Content = styled.div`
+  height: auto;
+  padding: 5%;
+  border-bottom: 0.5px solid #d5d5d5;
+  > img {
+    justify-content: right;
+  }
+`;
+
+export const CancelDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: lighter;
+  margin-bottom: 20px;
+  > div:nth-child(2) > div:nth-child(2) {
+    justify-content: flex-end;
+    text-align: right;
+  }
+`;
+
+export const Title = styled.div`
+  font-size: 16px;
+  font-weight: normal;
+`;
+
+export const ContentState = styled.div`
+  display: flex;
+  width: 90px;
+  justify-content: space-between;
+  > div:nth-child(1) {
+    margin-bottom: 5px;
+  }
+`;
+
+export const BottomDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const ContentText = styled.div`
+  height: 140px;
+  width: 100%;
+`;
+
+export const ButtonDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  > button {
+    border-radius: 17px;
+    border: 0.5px solid #707070;
+    background-color: white;
+    width: 32%;
+    height: 34px;
+  }
+  > button:focus {
+    outline: none;
+  }
 `;
