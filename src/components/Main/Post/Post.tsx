@@ -9,6 +9,7 @@ import {
   postContent,
   postContentSaga,
 } from "../../../modules/action/loginCheck";
+import Emoji from "./Emoji";
 
 const Post = (props: {
   postTitle: Type.titleType;
@@ -41,51 +42,10 @@ const Post = (props: {
   const loginCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.loginCheck
   );
-  const emojiObject: Object = {
-    LIKE: "👍",
-    NICE: "❤️",
-    FUN: "😁",
-    SAD: "😥",
-    ANGRY: "😡",
-    COOL: "😮",
-  };
+
   const [hover, setHover] = useState<boolean>(false);
   const [emojiValue, setEmojiValue] = useState<string>(emoji);
-  const [emojiCheck, setEmojiCheck] = useState<boolean>(false);
-  const onEmojiClick = (e) => {
-    console.log(e.target.id);
-    if (!emojiValue) setEmojiValue(e.target.id);
-    else setEmojiValue(null);
-    axios
-      .post(
-        `http://3.36.218.14:8080/posts/${id}/emoji?status=${e.target.id}`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err.response);
-        if (err.response.status === 401) {
-          axios
-            .put(
-              "http://3.36.218.14:8080/auth",
-              {},
-              {
-                headers: {
-                  "X-Refresh-Token": refresh_token,
-                },
-              }
-            )
-            .then((res) => console.log(res))
-            .catch((err) => {
-              console.log(err.response);
-              window.localStorage.clear();
-            });
-        }
-      });
-  };
+
   return (
     <S.Main>
       <S.PostDiv>
@@ -118,70 +78,19 @@ const Post = (props: {
             <div>공감수&nbsp;{like}</div>
           </S.BottomText>
           <S.ButtonDiv>
-            {token &&
-              (!emojiValue ? (
-                !hover ? (
-                  <button
-                    onMouseEnter={() => {
-                      setHover((prev) => !prev);
-                    }}
-                  >
-                    이모지 추가
-                  </button>
-                ) : (
-                  <S.IconDiv
-                    hover={hover}
-                    onMouseLeave={() => {
-                      setHover((prev) => !prev);
-                    }}
-                  >
-                    <S.IconInsideDiv>
-                      <>
-                        <div id="LIKE" onClick={onEmojiClick}>
-                          👍
-                        </div>
-                        <div id="NICE" onClick={onEmojiClick}>
-                          ❤️
-                        </div>
-                        <div id="FUN" onClick={onEmojiClick}>
-                          😁
-                        </div>
-                        <div id="SAD" onClick={onEmojiClick}>
-                          😥
-                        </div>
-                        <div id="ANGRY" onClick={onEmojiClick}>
-                          😡
-                        </div>
-                        <div id="COOL" onClick={onEmojiClick}>
-                          😮
-                        </div>
-                      </>
-                    </S.IconInsideDiv>
-                  </S.IconDiv>
-                )
-              ) : (
-                <>
-                  <S.EmojiDiv>
-                    <div id={emojiValue} onClick={onEmojiClick}>
-                      {emojiObject[emojiValue]}
-                    </div>
-                  </S.EmojiDiv>
-                </>
-              ))}
+            {token && (
+              <Emoji
+                emojiValue={emojiValue}
+                setEmojiValue={setEmojiValue}
+                hover={hover}
+                setHover={setHover}
+                id={id}
+              />
+            )}
 
             <button
               onClick={() => {
-                onClick(
-                  id
-                ); /*
-                axios
-                  .get(`http://3.36.218.14:8080/posts/${id}`)
-                  .then((res) => {
-                    console.log(res);
-                    ;
-                  })
-                  .catch((err) => console.log(err));
-*/
+                onClick(id);
                 console.log(data);
                 dispatch(postContentSaga(id));
               }}

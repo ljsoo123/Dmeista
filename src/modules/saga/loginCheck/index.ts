@@ -155,16 +155,37 @@ function* newPostSagaFunc() {
 }
 
 function* postContentSagaFunc(action: any) {
+  const token = localStorage.getItem("token");
+  const refresh_token = localStorage.getItem("refresh-token");
   console.log(action);
   const data = yield call(
     axios.get,
-    `http://3.36.218.14:8080/posts/${action.payload.id}`
+    `http://3.36.218.14:8080/posts/${action.payload.id}`,
+    { headers: { Authorization: `Bearer ${token}` } }
   );
   try {
     console.log(data);
-    yield put(postContent(data.data));
+    console.log(action.payload.id);
+    yield put(postContent(data.data, action.payload.id));
   } catch (err) {
     console.log(err);
+    if (err.response.status === 401) {
+      try {
+        yield call(
+          axios.put,
+          "http://3.36.218.14:8080/auth",
+          {},
+          {
+            headers: {
+              "X-Refresh-Token": refresh_token,
+            },
+          }
+        );
+      } catch (err) {
+        console.log("reload err");
+        console.log(err.response);
+      }
+    }
   }
 }
 

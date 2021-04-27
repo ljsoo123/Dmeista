@@ -66,6 +66,7 @@ export const initialState: LoginState = {
     tags: "",
     title: "",
     view_count: 0,
+    id: 0,
   },
   search: "",
 };
@@ -157,6 +158,7 @@ const loginCheckReducer = (
           tags: action.payload.data.tags,
           title: action.payload.data.title,
           view_count: action.payload.data.view_count,
+          id: action.payload.id,
         },
       };
     }

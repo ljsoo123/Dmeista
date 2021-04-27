@@ -29,4 +29,5 @@ export interface PostContent {
   tags: string;
   title: string;
   view_count: number;
+  id: number;
 }

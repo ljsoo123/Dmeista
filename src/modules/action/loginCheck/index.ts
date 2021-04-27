@@ -67,10 +67,11 @@ export const friendRequestList = (data: string[]) => ({
   payload: data,
 });
 export const friendRequestListSaga = () => ({ type: FRIENDREQUESTLIST_SAGA });
-export const postContent = (data: PostContent) => ({
+export const postContent = (data: PostContent, id: number) => ({
   type: POSTCONTENT,
   payload: {
     data,
+    id: id,
   },
 });
 export const postContentSaga = (id: number) => ({
