@@ -8,11 +8,13 @@ import {
   modalStateSaga,
   signUpStateSaga,
   newPostSaga,
+  searchSaga,
 } from "../../modules/action/loginCheck";
 import * as T from "../../../types";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const [tag, setTag] = useState<string>();
   var history = useHistory();
   var loginCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.loginCheck
@@ -21,12 +23,6 @@ const Header = () => {
   const token = localStorage.getItem("token");
   const modalCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.modalCheck
-  );
-  const signUpCheck: boolean = useSelector(
-    (store: Store) => store.loginCheck.signUpCheck
-  );
-  const newPostCheck: boolean = useSelector(
-    (store: Store) => store.loginCheck.newPost
   );
   const [name, setName] = useState<any>("");
 
@@ -41,6 +37,7 @@ const Header = () => {
   };
   const onGoHome = () => {
     history.push("/");
+    setTag("");
   };
   const onSignUpClick = () => {
     dispatch(signUpStateSaga());
@@ -51,6 +48,16 @@ const Header = () => {
   const onLogOutClick = () => {
     dispatch(loginStateSaga());
     window.localStorage.clear();
+  };
+  const onSearch = (e) => {
+    if (e.key == "Enter") {
+      dispatch(searchSaga(tag));
+      history.push("/search");
+      console.log(tag);
+    }
+  };
+  const onSearchChange = (e) => {
+    setTag(e.target.value);
   };
   useEffect(() => {
     setName(localStorage.getItem("userName"));
@@ -63,7 +70,13 @@ const Header = () => {
           <S.MainLeft>
             <S.Title onClick={onGoHome}>Dmeista</S.Title>
             <S.Input>
-              <input placeholder="태그로 검색하세요! ex) #대마고" />
+              <input
+                placeholder="태그로 검색하세요! ex) #대마고"
+                onKeyPress={(e) => {
+                  onSearch(e);
+                }}
+                onChange={onSearchChange}
+              />
             </S.Input>
           </S.MainLeft>
           <S.MainRight>
@@ -77,7 +90,7 @@ const Header = () => {
               ) : (
                 <>
                   <button onClick={onNewPostClick}>새 게시물 작성</button>
-                  <div onClick={() => history.push("mypage")}>마이페이지</div>
+                  <div onClick={onMyPageClick}>마이페이지</div>
                   <div>
                     <div>{name}&nbsp;님 안녕하세요</div>
                     <div>&nbsp;|&nbsp;</div>

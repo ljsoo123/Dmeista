@@ -27,6 +27,8 @@ export const FRIENDREQUESTLIST = "FRIENDREQUEST/FRIENDREQUESTLIST";
 export const FRIENDREQUESTLIST_SAGA = "FRIENDREQUEST/FRIENDREQUESTLIST_SAGA";
 export const POSTCONTENT = "POSTCONTENT/POSTCONTENT";
 export const POSTCONTENT_SAGA = "POSTCONTENT/POSTCONTENT_SAGA";
+export const SEARCH = "MAIN/SEARCH";
+export const SEARCH_SAGA = "MAIN/SEARCH_SAGA";
 
 export const loginState = () => ({ type: LOGINSTATE });
 export const loginStateSaga = () => ({ type: LOGINSTATE_SAGA });
@@ -77,6 +79,16 @@ export const postContentSaga = (id: number) => ({
     id: id,
   },
 });
+export const search = (tag: string) => ({
+  type: SEARCH,
+  payload: { tag: tag },
+});
+export const searchSaga = (tag: string) => ({
+  type: SEARCH_SAGA,
+  payload: {
+    tag: tag,
+  },
+});
 
 type LoginCheckAction = ReturnType<
   | typeof loginState
@@ -91,6 +103,7 @@ type LoginCheckAction = ReturnType<
   | typeof newPost
   | typeof friendRequestList
   | typeof postContent
+  | typeof search
 >;
 
 export default LoginCheckAction;
