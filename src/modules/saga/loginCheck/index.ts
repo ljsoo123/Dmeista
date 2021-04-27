@@ -31,6 +31,8 @@ import {
   FRIENDREQUESTLIST,
   POSTCONTENT_SAGA,
   postContent,
+  search,
+  SEARCH_SAGA,
 } from "../../action/loginCheck";
 import proc from "redux-saga/lib/proc";
 import { initialState } from "../../reducer/loginCheck";
@@ -54,7 +56,15 @@ function* friendRequestListSagaFunc() {
     );
     yield put(friendRequestList(data.data.application_responses));
   } catch (err) {
-    console.log(err.response);
+    if (err.response.status === 401) {
+      const refresh_token = localStorage.getItem("refresh-token");
+      yield call(
+        axios.put,
+        "http://3.36.218.14:8080",
+        {},
+        { headers: { "X-Refresh-Token": refresh_token } }
+      );
+    }
   }
 }
 
@@ -158,6 +168,10 @@ function* postContentSagaFunc(action: any) {
   }
 }
 
+function* searchSagaFunc(action: any) {
+  yield put(search(action.payload.tag));
+}
+
 function* loginSaga() {
   yield takeEvery(LOGINSTATE_SAGA, loginStateSagaFunc);
   yield takeEvery(MODALSTATE_SAGA, modalStateSagaFunc);
@@ -170,6 +184,7 @@ function* loginSaga() {
   yield takeEvery(LOGINEND_SAGA, loginEndSagaFunc);
   yield takeEvery(FRIENDREQUESTLIST_SAGA, friendRequestListSagaFunc);
   yield takeEvery(POSTCONTENT_SAGA, postContentSagaFunc);
+  yield takeEvery(SEARCH_SAGA, searchSagaFunc);
 }
 
 export default loginSaga;
