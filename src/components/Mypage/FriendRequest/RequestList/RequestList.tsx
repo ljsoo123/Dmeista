@@ -8,6 +8,7 @@ import { friendRequestListSaga } from "../../../../modules/action/loginCheck";
 const RequestList = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
+  const refresh_token = localStorage.getItem("refresh-token");
   const userData = useSelector(
     (store: Store) => store.loginCheck.friendRequest
   );
@@ -39,7 +40,19 @@ const RequestList = () => {
                         },
                       })
                       .then((res) => console.log(res))
-                      .catch((err) => console.log(err.response));
+                      .catch((err) => {
+                        if (err.response.status === 401) {
+                          axios.put(
+                            "http://3.36.218.14:8080/auth",
+                            {},
+                            {
+                              headers: {
+                                "X-Refresh-Token": refresh_token,
+                              },
+                            }
+                          );
+                        }
+                      });
                   }}
                 >
                   확인
@@ -58,7 +71,19 @@ const RequestList = () => {
                         },
                       })
                       .then((res) => console.log(res))
-                      .catch((err) => console.log(err.response));
+                      .catch((err) => {
+                        if (err.response.status === 401) {
+                          axios.put(
+                            "http://3.36.218.14:8080/auth",
+                            {},
+                            {
+                              headers: {
+                                "X-Refresh-Token": refresh_token,
+                              },
+                            }
+                          );
+                        }
+                      });
                   }}
                 >
                   삭제
