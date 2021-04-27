@@ -14,6 +14,7 @@ import LoginCheckAction, {
   FRIENDREQUESTLIST_SAGA,
   POSTCONTENT,
   postContent,
+  SEARCH,
 } from "../../action/loginCheck";
 import { User, PostContent } from "../../../../types";
 
@@ -34,6 +35,7 @@ interface LoginState {
   friendRequest: string[];
   newPost: boolean;
   postContent: PostContent;
+  search: string;
 }
 
 export const initialState: LoginState = {
@@ -65,6 +67,7 @@ export const initialState: LoginState = {
     title: "",
     view_count: 0,
   },
+  search: "",
 };
 
 const loginCheckReducer = (
@@ -155,6 +158,12 @@ const loginCheckReducer = (
           title: action.payload.data.title,
           view_count: action.payload.data.view_count,
         },
+      };
+    }
+    case SEARCH: {
+      return {
+        ...state,
+        search: action.payload.tag,
       };
     }
     default: {
