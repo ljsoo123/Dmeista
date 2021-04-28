@@ -10,11 +10,13 @@ import axios from "axios";
 import Slider from "./Slider";
 import cancelLogin from "../../../../image/cancelLogin.svg";
 import Emoji from "./Emoji";
+import Comment from "./Comment";
 
 const PostContent = (props: { postContent: boolean; postChange }) => {
   let { postContent, postChange } = props;
   const dispatch = useDispatch();
   const data = useSelector((store: Store) => store.loginCheck.postContent);
+  const id = useSelector((store: Store) => store.loginCheck.id);
   const [images, setImages] = useState<string[]>([]);
   const [totalSlide, setTotalSlide] = useState<number>(0);
   const [emojiValue, setEmojiValue] = useState<string>(data.emoji);
@@ -82,11 +84,12 @@ const PostContent = (props: { postContent: boolean; postChange }) => {
                       setEmojiValue={setEmojiValue}
                       hover={hover}
                       setHover={setHover}
-                      id={data.id}
+                      id={id}
                     />
                   </S.ButtonDiv>
                 </S.BottomDiv>
               </S.Content>
+              <Comment />
             </S.ContentDiv>
           </S.MainDiv>
         </S.Main>
