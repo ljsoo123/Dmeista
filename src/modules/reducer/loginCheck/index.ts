@@ -26,7 +26,6 @@ interface LoginInfo {
 interface LoginState {
   loginCheck: boolean;
   modalCheck: boolean;
-  user: User[];
   signUpCheck: boolean;
   friendCheck: boolean;
   changeInfo: boolean;
@@ -36,6 +35,7 @@ interface LoginState {
   newPost: boolean;
   postContent: PostContent;
   search: string;
+  id: number;
 }
 
 export const initialState: LoginState = {
@@ -47,13 +47,6 @@ export const initialState: LoginState = {
   changePassword: false,
   changeEmail: false,
   newPost: false,
-  user: [
-    {
-      nickname: "kangshinhee",
-      email: "rkdtlsgml40@gmail.com",
-      createdAt: "2020-12-15",
-    },
-  ],
   friendRequest: [],
   postContent: {
     author: "",
@@ -66,8 +59,8 @@ export const initialState: LoginState = {
     tags: "",
     title: "",
     view_count: 0,
-    id: 0,
   },
+  id: 0,
   search: "",
 };
 
@@ -158,8 +151,8 @@ const loginCheckReducer = (
           tags: action.payload.data.tags,
           title: action.payload.data.title,
           view_count: action.payload.data.view_count,
-          id: action.payload.id,
         },
+        id: action.payload.id,
       };
     }
     case SEARCH: {
