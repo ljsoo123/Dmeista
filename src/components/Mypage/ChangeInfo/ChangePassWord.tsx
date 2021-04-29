@@ -26,27 +26,21 @@ const ChangePassWord = () => {
       .post("http://3.36.218.14:8080/users/email/verify/user", {
         email: email,
       })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {})
+      .catch((err) => {});
   };
   const onDoneClick = () => {
     setDone(!done);
-    axios
-      .put("http://3.36.218.14:8080/users/email/verify", {
-        email: email,
-        auth_code: auth,
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    axios.put("http://3.36.218.14:8080/users/email/verify", {
+      email: email,
+      auth_code: auth,
+    });
   };
   const onChangePassword = () => {
-    axios
-      .put("http://3.36.218.14:8080/users/password", {
-        email: email,
-        password: newPassword,
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    axios.put("http://3.36.218.14:8080/users/password", {
+      email: email,
+      password: newPassword,
+    });
     dispatch(changePasswordSaga());
   };
 

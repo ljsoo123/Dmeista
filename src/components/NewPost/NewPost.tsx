@@ -28,7 +28,6 @@ const NewPost = () => {
     setImageFile([...imageFile, file]);
   };
   const onWriteClick = () => {
-    console.log(autoTag, content, tags, title);
     const form: FormData = new FormData();
     imageFile.forEach((file) => form.append("imageFile", file));
 
@@ -39,8 +38,6 @@ const NewPost = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
-        console.log(res);
-        console.log(imageFile);
         dispatch(newPostSaga());
       })
       .catch((err) => {
@@ -74,7 +71,6 @@ const NewPost = () => {
                 placeholder="제목을 입력하세요"
                 onChange={(e) => {
                   setTitle(e.target.value);
-                  console.log(title);
                 }}
               />
               <S.InputContent

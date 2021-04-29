@@ -55,11 +55,7 @@ const Search = () => {
         )
         .then((res) => {
           setPosts((prev) => [...prev, ...res.data.application_responses]);
-          //console.log(12312312);
-          console.log(res);
-          res.data.application_responses.map((now) => {
-            //console.log(now);
-          });
+          res.data.application_responses.map((now) => {});
         })
         .catch((err) => {
           if (err.response.status === 401) {
@@ -78,7 +74,6 @@ const Search = () => {
                 localStorage.setItem("refresh-token", res.data.refresh_token);
               })
               .catch((err) => {
-                console.log(err.response);
                 localStorage.clear();
               });
           }
@@ -93,8 +88,6 @@ const Search = () => {
           `http://3.36.218.14:8080/posts?size=5&page=${pageNum}&tags=${searchTag}`
         )
         .then((res) => {
-          console.log(res);
-          console.log("no");
           setPosts((prev) => [...prev, ...res.data.application_responses]);
         })
         .catch((err) => {});
@@ -104,7 +97,6 @@ const Search = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     window.addEventListener("scroll", infiniteScroll, true);
-    console.log("load");
     return () => {
       window.removeEventListener("scroll", infiniteScroll);
     };

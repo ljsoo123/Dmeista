@@ -29,11 +29,8 @@ const Emoji = (props: {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       )
-      .then((res) => {
-        console.log(res);
-      })
+      .then((res) => {})
       .catch((err) => {
-        console.log(err.response);
         if (err.response.status === 401) {
           axios
             .put(
@@ -45,9 +42,8 @@ const Emoji = (props: {
                 },
               }
             )
-            .then((res) => console.log(res))
+            .then((res) => {})
             .catch((err) => {
-              console.log(err.response);
               window.localStorage.clear();
             });
         }

@@ -14,10 +14,6 @@ const RequestList = () => {
   );
   const [check, setCheck] = useState<boolean[]>(userData.map(() => false));
   const [del, setDel] = useState<boolean[]>(userData.map(() => false));
-  console.log(check, del);
-  useEffect(() => {
-    console.log(userData);
-  });
   return (
     <>
       {userData.length >= 1 &&
@@ -32,14 +28,13 @@ const RequestList = () => {
                     setCheck((prev) =>
                       prev.map((now, j) => (i === j ? !now : now))
                     );
-                    console.log(check);
                     axios
                       .put(`http://3.36.218.14:8080/users/friends/${now}`, {
                         headers: {
                           Authorization: `Bearer ${token}`,
                         },
                       })
-                      .then((res) => console.log(res))
+                      .then((res) => {})
                       .catch((err) => {
                         if (err.response.status === 401) {
                           axios.put(
@@ -63,14 +58,13 @@ const RequestList = () => {
                     setDel((prev) =>
                       prev.map((now, j) => (i === j ? !now : now))
                     );
-                    console.log(check);
                     axios
                       .delete(`http://3.36.218.14:8080/users/friends/${now}`, {
                         headers: {
                           Authorization: `Bearer ${token}`,
                         },
                       })
-                      .then((res) => console.log(res))
+                      .then((res) => {})
                       .catch((err) => {
                         if (err.response.status === 401) {
                           axios.put(

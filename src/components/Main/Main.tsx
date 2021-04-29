@@ -22,7 +22,7 @@ interface ResPosts {
   id: number;
   tags: any;
   title: string;
-  view: number;
+  view_count: number;
   emoji_count: number;
 }
 
@@ -52,11 +52,7 @@ const Main = () => {
         })
         .then((res) => {
           setPosts((prev) => [...prev, ...res.data.application_responses]);
-          //console.log(12312312);
-          console.log(res);
-          res.data.application_responses.map((now) => {
-            //console.log(now);
-          });
+          res.data.application_responses.map((now) => {});
         })
         .catch((err) => {
           if (err.response.status === 401) {
@@ -75,7 +71,6 @@ const Main = () => {
                 localStorage.setItem("refresh-token", res.data.refresh_token);
               })
               .catch((err) => {
-                console.log(err.response);
                 localStorage.clear();
               });
           }
@@ -88,8 +83,6 @@ const Main = () => {
           total_pages: number;
         }>(`http://3.36.218.14:8080/posts?size=5&page=${pageNum}`)
         .then((res) => {
-          console.log(res);
-          console.log("no");
           setPosts((prev) => [...prev, ...res.data.application_responses]);
         })
         .catch((err) => {});
@@ -99,7 +92,6 @@ const Main = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     window.addEventListener("scroll", infiniteScroll, true);
-    console.log("load");
     return () => {
       window.removeEventListener("scroll", infiniteScroll);
     };
@@ -134,7 +126,7 @@ const Main = () => {
               author,
               content,
               created_at,
-              view,
+              view_count,
               emoji,
             },
             i
@@ -147,7 +139,7 @@ const Main = () => {
                 hashTag={newTag}
                 time={created_at}
                 write={content}
-                views={view}
+                views={view_count}
                 like={emoji_count}
                 emoji={emoji}
                 onClick={onPostClick}

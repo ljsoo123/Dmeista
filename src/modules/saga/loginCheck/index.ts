@@ -80,21 +80,16 @@ function* loginEndSagaFunc(action: any) {
     });
     alert("로그인 완료");
     yield put(loginEnd());
-    console.log();
     localStorage.setItem("token", data.data.access_token);
     localStorage.setItem("refresh-token", data.data.refresh_token);
     const token = localStorage.getItem("token");
     const refresh_token = localStorage.getItem("refresh-token");
-    //console.log(localStorage.getItem("token"));
-    //setTimeout(() => {}, 300);
     try {
       const userData = yield call(axios.get, "http://3.36.218.14:8080/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(1);
-      console.log(userData);
       localStorage.setItem("userName", userData.data.username);
       if (localStorage.getItem("userName")) yield put(loginState());
     } catch (err) {
@@ -112,17 +107,14 @@ function* loginEndSagaFunc(action: any) {
             }
           );
         } catch (err) {
-          console.log("reload err");
-          console.log(err.response);
+          alert("error");
         }
       }
       localStorage.clear();
-      console.log(err.response);
     }
   } catch (err) {
     yield alert("이메일 혹은 비밀번호가 틀렸습니다.");
     window.localStorage.clear();
-    console.log(err.response);
   }
 }
 
@@ -157,18 +149,14 @@ function* newPostSagaFunc() {
 function* postContentSagaFunc(action: any) {
   const token = localStorage.getItem("token");
   const refresh_token = localStorage.getItem("refresh-token");
-  console.log(action);
   const data = yield call(
     axios.get,
     `http://3.36.218.14:8080/posts/${action.payload.id}`,
     { headers: { Authorization: `Bearer ${token}` } }
   );
   try {
-    console.log(data);
-    console.log(action.payload.id);
     yield put(postContent(data.data, action.payload.id));
   } catch (err) {
-    console.log(err);
     if (err.response.status === 401) {
       try {
         yield call(
@@ -182,8 +170,7 @@ function* postContentSagaFunc(action: any) {
           }
         );
       } catch (err) {
-        console.log("reload err");
-        console.log(err.response);
+        alert("err");
       }
     }
   }
