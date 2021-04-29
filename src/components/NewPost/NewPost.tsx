@@ -30,17 +30,22 @@ const NewPost = () => {
   const onWriteClick = () => {
     const form: FormData = new FormData();
     imageFile.forEach((file) => form.append("imageFile", file));
-
+    console.log(title);
+    console.log(autoTag);
+    console.log(content);
+    console.log(tags);
     axios
       .post(
         `http://3.36.218.14:8080/posts?autoTag=${autoTag}&content=${content}&tags=${tags}&title=${title}`,
-        form,
+        //form,
+        {},
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
         dispatch(newPostSaga());
       })
       .catch((err) => {
+        console.log(err.response);
         if (err.response.status === 401) {
           axios.put(
             "http://3.36.218.14:8080/auth",
@@ -103,8 +108,10 @@ const NewPost = () => {
                   </div>
                 </S.ImageContent>
                 <S.TagContent
-                  placeholder="태그를 추가해 주세요 ex) #태그"
-                  onChange={(e) => setTags(e.target.value)}
+                  placeholder="태그를 추가해 주세요 ex) 태그, dmeista"
+                  onChange={(e) => {
+                    setTags(e.target.value);
+                  }}
                 />
               </S.FlexDiv>
               <S.ButtonDiv>
