@@ -23,7 +23,6 @@ const Login = () => {
   );
 
   const onXClick = () => {
-    console.log("x");
     dispatch(modalStateSaga());
   };
   const onLogin = () => {
@@ -32,7 +31,6 @@ const Login = () => {
     dispatch(modalStateSaga());
   };
   const onSignUpClick = () => {
-    //console.log("asasd");
     dispatch(signUpStateSaga());
     dispatch(modalStateSaga());
   };

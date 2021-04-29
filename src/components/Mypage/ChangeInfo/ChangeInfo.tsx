@@ -41,10 +41,6 @@ const ChangeInfo = (props: { passwordCheck: boolean }) => {
                 <div>패스워드 변경</div>
                 <div>인증 후 패스워드를 재설정 합니다.</div>
               </S.ChangeButton>
-              <S.ChangeButton onClick={onEmailClick}>
-                <div>이메일 변경</div>
-                <div>인증 후 이메일을 재설정 합니다.</div>
-              </S.ChangeButton>
             </S.Content>
           </S.MainDiv>
         </S.Main>

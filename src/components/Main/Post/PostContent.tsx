@@ -10,7 +10,7 @@ import axios from "axios";
 import Slider from "./Slider";
 import cancelLogin from "../../../../image/cancelLogin.svg";
 import Emoji from "./Emoji";
-import Comment from "./Comment";
+import Comment from "./Comment/Comment";
 
 const PostContent = (props: { postContent: boolean; postChange }) => {
   let { postContent, postChange } = props;
@@ -25,7 +25,6 @@ const PostContent = (props: { postContent: boolean; postChange }) => {
     postChange(false);
   };
   useEffect(() => {
-    //dispatch(postContentSaga);
     setEmojiValue(data.emoji);
     setTotalSlide(data.images.length);
     data.images.forEach((now) => {
@@ -43,7 +42,7 @@ const PostContent = (props: { postContent: boolean; postChange }) => {
           );
           setImages((prev) => [...prev, `data:;base64,${data}`]);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     });
   }, [data]);
 
@@ -89,7 +88,7 @@ const PostContent = (props: { postContent: boolean; postChange }) => {
                   </S.ButtonDiv>
                 </S.BottomDiv>
               </S.Content>
-              <Comment />
+              <Comment data={data} />
             </S.ContentDiv>
           </S.MainDiv>
         </S.Main>

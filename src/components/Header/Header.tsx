@@ -28,12 +28,9 @@ const Header = () => {
 
   const onMyPageClick = () => {
     history.push("/mypage");
-    console.log(1);
   };
   const onLoginCheck = () => {
     dispatch(modalStateSaga());
-    console.log(modalCheck);
-    // dispatch(loginStateSaga());
   };
   const onGoHome = () => {
     history.push("/");
@@ -53,7 +50,6 @@ const Header = () => {
     if (e.key == "Enter") {
       dispatch(searchSaga(tag));
       history.push("/search");
-      console.log(tag);
     }
   };
   const onSearchChange = (e) => {

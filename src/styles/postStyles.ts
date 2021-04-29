@@ -14,11 +14,11 @@ export const Main = styled.div`
 `;
 
 export const PostDiv = styled.div`
-  width: 50%;
+  width: 60%;
   @media (max-width: 600px) {
     width: 75%;
   }
-  height: 100%;
+  height: 80%;
   padding-top: 30px;
   padding-left: 50px;
   padding-right: 50px;

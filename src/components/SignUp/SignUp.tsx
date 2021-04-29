@@ -27,7 +27,6 @@ const SignUp = () => {
     (store: Store) => store.loginCheck.signUpCheck
   );
   const onXClick = () => {
-    console.log("x");
     dispatch(signUpStateSaga());
     setCheck(false);
     setConfirm(false);
@@ -49,36 +48,28 @@ const SignUp = () => {
         nickname: nickname,
       })
       .then((res) => {
-        console.log(res);
+        {
+        }
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => {});
   };
   const onEmailClick = () => {
     setCertification(!certification);
-    axios
-      .post("http://3.36.218.14:8080/users/email/verify/signup", {
-        email: email,
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    axios.post("http://3.36.218.14:8080/users/email/verify/signup", {
+      email: email,
+    });
   };
   const onNicknameCheck = () => {
     setSameCheck(true);
-    axios
-      .get(`http://3.36.218.14:8080/users/nickname?nickname=${nickname}`)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err.response));
+    axios.get(`http://3.36.218.14:8080/users/nickname?nickname=${nickname}`);
   };
   const onDoneClick = () => {
     setCheck(true);
     setConfirm(true);
-    axios
-      .put("http://3.36.218.14:8080/users/email/verify", {
-        email: email,
-        auth_code: auth,
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    axios.put("http://3.36.218.14:8080/users/email/verify", {
+      email: email,
+      auth_code: auth,
+    });
   };
   return (
     <>

@@ -91,7 +91,6 @@ const Post = (props: {
             <button
               onClick={() => {
                 onClick(id);
-                console.log(data);
                 dispatch(postContentSaga(id));
               }}
             >
