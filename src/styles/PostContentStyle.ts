@@ -45,6 +45,7 @@ export const ContentDiv = styled.div`
   background: white;
   width: 50%;
   height: 100%;
+  overflow: auto;
 `;
 
 export const SliderContainer = styled.div`
