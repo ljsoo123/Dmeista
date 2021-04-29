@@ -43,13 +43,22 @@ export const ContentDiv = styled.div`
     width: 100%;
     display: flex;
   }
-  > div > div:nth-child(2n) {
-    font-weight: normal;
-    text-align: left;
-    width: 60%;
+`;
+
+export const MyInfo = styled.div`
+  width: 100%;
+  display: flex;
+  > div:nth-child(1) {
+    width: 70px;
+    font-size: 15px;
+    font-weight: lighter;
+    margin-right: 20px;
+    > div {
+      margin-bottom: 13px;
+    }
   }
-  > div > div:nth-child(2n-1) {
-    width: 40%;
+  > div > div {
+    margin-bottom: 10px;
   }
 `;
 export const BorderDiv = styled.div`
@@ -66,6 +75,7 @@ export const InnerDiv = styled.div`
   flex-wrap: wrap;
   > div {
     width: 40%;
+    height: 200px;
   }
   > div:nth-child(3) {
     margin-top: 46px;
@@ -106,4 +116,18 @@ export const FriendButtonDiv = styled.div`
 
 export const LightDiv = styled.div`
   font-weight: lighter;
+`;
+
+export const WriteDiv = styled.div`
+  width: 100%;
+  height: 150%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  font-size: 15px;
+  font-weight: lighter;
+  > div {
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+  }
 `;
