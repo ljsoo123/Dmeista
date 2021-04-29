@@ -16,18 +16,27 @@ import ChangePassWord from "./ChangeInfo/ChangePassWord";
 import ChangeEmail from "./ChangeInfo/ChangeEmail";
 import axios from "axios";
 import NewPost from "../NewPost/NewPost";
+import * as T from "../../../types";
+import Friend from "./Friend/Friend";
+import WriteList from "./WriteList/WriteList";
 
 const Mypage = () => {
   const dispatch = useDispatch();
   const [passwordCheck, setPasswordCheck] = useState<boolean>(false);
   const [emailCheck, setEmailCheck] = useState<boolean>(false);
+  const [friend, setFriend] = useState<T.FriendType>({
+    application_responses: [],
+    total_items: 0,
+  });
+  const [postList, setPostList] = useState<any>([]);
   const token: string = localStorage.getItem("token");
-  const user: User = useSelector((store: Store) => store.loginCheck.user[0]);
-  const changeInfo: boolean = useSelector(
-    (store: Store) => store.loginCheck.changeInfo
-  );
-  const { email, nickname, createdAt } = user;
-  console.log(user);
+  const refresh_token: string = localStorage.getItem("refresh-token");
+
+  const [userInfo, setUserInfo] = useState<T.UserInfo>({
+    email: "",
+    created_at: "",
+    username: "",
+  });
   const onFriendClick = () => {
     dispatch(friendStateSaga());
     dispatch(friendRequestListSaga());
@@ -35,6 +44,54 @@ const Mypage = () => {
   const onChangeInfoClick = () => {
     dispatch(changeInfoSaga());
   };
+  useEffect(() => {
+    axios
+      .get("http://3.36.218.14:8080/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setUserInfo({
+          ...userInfo,
+          email: res.data.email,
+          created_at: res.data.created_at,
+          username: res.data.username,
+        });
+        setPostList(res.data.post_list);
+        axios
+          .get("http://3.36.218.14:8080/users/friends", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((res) => {
+            setFriend({
+              ...friend,
+              application_responses: res.data.application_responses,
+              total_items: res.data.total_items,
+            });
+          })
+          .catch((err) => {});
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          axios
+            .put(
+              "http://3.36.218.14:8080/auth",
+              {},
+              {
+                headers: {
+                  "X-Refresh-Token": refresh_token,
+                },
+              }
+            )
+            .then((res) => {
+              localStorage.setItem("token", res.data.access_token);
+              localStorage.setItem("refresh-token", res.data.refresh_token);
+            })
+            .catch((err) => {
+              localStorage.clear();
+            });
+        }
+      });
+  }, []);
   return (
     <>
       <NewPost />
@@ -49,20 +106,18 @@ const Mypage = () => {
               <div>
                 <S.TitleDiv>마이페이지</S.TitleDiv>
                 <S.BorderDiv />
-                <S.ContentDiv>
+                <S.MyInfo>
                   <div>
                     <div>username.</div>
-                    <div>{nickname}</div>
-                  </div>
-                  <div>
                     <div>email.</div>
-                    <div>{email}</div>
+                    <div>createdAt.</div>
                   </div>
                   <div>
-                    <div>createdAt.</div>
-                    <div>{createdAt}</div>
+                    <div>{userInfo.username}</div>
+                    <div>{userInfo.email}</div>
+                    <div>{userInfo.created_at}</div>
                   </div>
-                </S.ContentDiv>
+                </S.MyInfo>
               </div>
               <div>
                 <S.FlexDiv>
@@ -72,7 +127,13 @@ const Mypage = () => {
                   </S.ButtonDiv>
                 </S.FlexDiv>
                 <S.BorderDiv />
-                <S.ContentDiv>최근에 작성한 글이 없습니다.</S.ContentDiv>
+                <S.WriteDiv>
+                  {postList.length > 0 ? (
+                    <WriteList postList={postList} />
+                  ) : (
+                    <>최근에 작성한 글이 없습니다.</>
+                  )}
+                </S.WriteDiv>
               </div>
               <div>
                 <S.FlexDiv>
@@ -84,7 +145,13 @@ const Mypage = () => {
                   </S.FriendButtonDiv>
                 </S.FlexDiv>
                 <S.BorderDiv />
-                <S.ContentDiv>친구가 없습니다.</S.ContentDiv>
+                <S.ContentDiv>
+                  {friend.application_responses.length > 0 ? (
+                    <Friend />
+                  ) : (
+                    <>친구가 없습니다.</>
+                  )}
+                </S.ContentDiv>
               </div>
             </S.InnerDiv>
           </S.TextDiv>
