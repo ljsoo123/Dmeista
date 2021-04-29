@@ -29,5 +29,47 @@ export interface PostContent {
   tags: string;
   title: string;
   view_count: number;
+}
+export interface UserInfo {
+  created_at: string;
+  email: string;
+  username: string;
+}
+interface FriendResponse {
+  connected_at: string;
+  email: string;
   id: number;
+  nickname: string;
+  post_content_item: number;
+}
+export interface FriendType {
+  application_responses: FriendResponse[];
+  total_items: number;
+}
+export interface MyPost {
+  author: string;
+  checked: boolean;
+  content: string;
+  created_at: string;
+  emoji: string;
+  emoji_count: number;
+  id: number;
+  tags: string;
+  title: string;
+  view_count: number;
+}
+interface SubCommentType {
+  author: string;
+  content: string;
+  created_at: string;
+  is_mine: boolean;
+  sub_comment_id: number;
+}
+export interface CommentType {
+  author: string;
+  comment_id: number;
+  content: string;
+  created_at: string;
+  is_mine: boolean;
+  sub_comments: SubCommentType[];
 }
