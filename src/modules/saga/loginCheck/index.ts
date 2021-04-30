@@ -149,30 +149,40 @@ function* newPostSagaFunc() {
 function* postContentSagaFunc(action: any) {
   const token = localStorage.getItem("token");
   const refresh_token = localStorage.getItem("refresh-token");
-  const data = yield call(
-    axios.get,
-    `http://3.36.218.14:8080/posts/${action.payload.id}`,
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-  try {
-    yield put(postContent(data.data, action.payload.id));
-  } catch (err) {
-    if (err.response.status === 401) {
-      try {
-        yield call(
-          axios.put,
-          "http://3.36.218.14:8080/auth",
-          {},
-          {
-            headers: {
-              "X-Refresh-Token": refresh_token,
-            },
-          }
-        );
-      } catch (err) {
-        alert("err");
+  if (token) {
+    const data = yield call(
+      axios.get,
+      `http://3.36.218.14:8080/posts/${action.payload.id}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    try {
+      yield put(postContent(data.data, action.payload.id));
+    } catch (err) {
+      if (err.response.status === 401) {
+        try {
+          yield call(
+            axios.put,
+            "http://3.36.218.14:8080/auth",
+            {},
+            {
+              headers: {
+                "X-Refresh-Token": refresh_token,
+              },
+            }
+          );
+        } catch (err) {
+          alert("err");
+        }
       }
     }
+  } else {
+    const data = yield call(
+      axios.get,
+      `http://3.36.218.14:8080/posts/${action.payload.id}`
+    );
+    try {
+      yield put(postContent(data.data, action.payload.id));
+    } catch {}
   }
 }
 
