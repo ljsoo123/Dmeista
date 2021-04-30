@@ -49,7 +49,7 @@ const PostContent = (props: { postContent: boolean; postChange }) => {
   return (
     <>
       {postContent && (
-        <S.Main>
+        <S.Main onClick={() => postChange(false)}>
           <S.MainDiv>
             <S.FlexDiv>
               <Slider images={images} total={totalSlide}></Slider>
