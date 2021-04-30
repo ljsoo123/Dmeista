@@ -37,8 +37,7 @@ const NewPost = () => {
     axios
       .post(
         `http://3.36.218.14:8080/posts?autoTag=${autoTag}&content=${content}&tags=${tags}&title=${title}`,
-        //form,
-        {},
+        form,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
@@ -62,10 +61,15 @@ const NewPost = () => {
   const onCancelClick = () => {
     dispatch(newPostSaga());
   };
+  const onSubmitEnter = (e) => {
+    if (e.key == "Enter") {
+      console.log("enter");
+    }
+  };
   return (
     <>
       {newPostCheck && (
-        <S.Main>
+        <S.Main onKeyPress={onSubmitEnter}>
           <S.MainDiv>
             <S.Content>
               <S.Image>
