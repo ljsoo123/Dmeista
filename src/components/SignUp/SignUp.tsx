@@ -51,25 +51,53 @@ const SignUp = () => {
         {
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
   const onEmailClick = () => {
-    setCertification(!certification);
-    axios.post("http://3.36.218.14:8080/users/email/verify/signup", {
-      email: email,
-    });
+    axios
+      .post("http://3.36.218.14:8080/users/email/verify/signup", {
+        email: email,
+      })
+      .then((res) => {
+        console.log(res);
+        setCertification(true);
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          setCertification(false);
+          alert("이미 사용중인 이메일입니다.");
+        }
+      });
   };
   const onNicknameCheck = () => {
-    setSameCheck(true);
-    axios.get(`http://3.36.218.14:8080/users/nickname?nickname=${nickname}`);
+    axios
+      .get(`http://3.36.218.14:8080/users/nickname?nickname=${nickname}`)
+      .then(() => {
+        setSameCheck(true);
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          setSameCheck(true);
+        }
+      });
   };
   const onDoneClick = () => {
-    setCheck(true);
-    setConfirm(true);
-    axios.put("http://3.36.218.14:8080/users/email/verify", {
-      email: email,
-      auth_code: auth,
-    });
+    axios
+      .put("http://3.36.218.14:8080/users/email/verify", {
+        email: email,
+        auth_code: auth,
+      })
+      .then(() => {
+        setCheck(true);
+        //setConfirm(true);
+      });
+  };
+  const onCertificationCheck = (e) => {
+    if (e.key == "Enter") {
+      document.getElementById("certification").click();
+    }
   };
   return (
     <>
@@ -104,10 +132,12 @@ const SignUp = () => {
                   <S.CheckNumDiv
                     placeholder="인증번호를 받을 이메일을 입력하세요"
                     onChange={(e) => setEmail(e.target.value)}
+                    onKeyPress={onCertificationCheck}
                   />
                   <S.CheckNumBtn
                     onClick={onEmailClick}
                     certification={certification}
+                    id="certification"
                   >
                     인증
                   </S.CheckNumBtn>
