@@ -44,7 +44,6 @@ const NewPost = () => {
         dispatch(newPostSaga());
       })
       .catch((err) => {
-        console.log(err.response);
         if (err.response.status === 401) {
           axios.put(
             "http://3.36.218.14:8080/auth",
@@ -63,7 +62,6 @@ const NewPost = () => {
   };
   const onSubmitEnter = (e) => {
     if (e.key == "Enter") {
-      console.log("enter");
       if (title && autoTag && content && tags) {
         const form: FormData = new FormData();
         imageFile.forEach((file) => form.append("imageFile", file));

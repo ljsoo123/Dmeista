@@ -102,7 +102,7 @@ const SignUp = () => {
   return (
     <>
       {signUpCheck && (
-        <S.Main>
+        <S.Main onClick={onXClick}>
           <S.CertificationImg certification={certification}>
             <img src={correctCertification} />
           </S.CertificationImg>
