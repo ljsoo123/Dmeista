@@ -38,7 +38,7 @@ const Login = () => {
     <>
       {loginCheck && (
         <>
-          <S.Main>
+          <S.Main onClick={onXClick}>
             <S.MainDiv>
               <S.Content>
                 <div>
