@@ -25,8 +25,10 @@ const PostContent = (props: { postContent: boolean; postChange }) => {
     postChange(false);
   };
   useEffect(() => {
+    console.log(data);
     setEmojiValue(data.emoji);
     setTotalSlide(data.images.length);
+    setImages([]);
     data.images.forEach((now) => {
       axios
         .get(`http://3.36.218.14:8080/image/${now}`, {
