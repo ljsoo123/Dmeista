@@ -19,7 +19,7 @@ const ChangeEmail = () => {
   return (
     <>
       {changeEmail && (
-        <S.Main onClick={onXClick}>
+        <S.Main>
           <S.MainDiv>
             <S.Content>
               <div>

@@ -34,11 +34,12 @@ const Login = () => {
     dispatch(signUpStateSaga());
     dispatch(modalStateSaga());
   };
+
   return (
     <>
       {loginCheck && (
         <>
-          <S.Main onClick={onXClick}>
+          <S.Main>
             <S.MainDiv>
               <S.Content>
                 <div>
