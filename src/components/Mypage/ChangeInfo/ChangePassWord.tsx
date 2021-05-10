@@ -47,7 +47,7 @@ const ChangePassWord = () => {
   return (
     <>
       {changePassword && (
-        <S.Main onClick={onXClick}>
+        <S.Main>
           <S.MainDiv>
             <S.Content>
               <div>

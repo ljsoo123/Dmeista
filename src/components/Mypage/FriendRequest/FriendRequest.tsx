@@ -20,7 +20,7 @@ const FriendRequest = () => {
   return (
     <>
       {friendCheck && (
-        <S.Main onClick={onXClick}>
+        <S.Main>
           <S.MainDiv>
             <S.Content>
               <div>

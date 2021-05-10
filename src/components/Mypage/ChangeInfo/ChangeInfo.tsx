@@ -27,7 +27,7 @@ const ChangeInfo = (props: { passwordCheck: boolean }) => {
   return (
     <>
       {changeInfo && (
-        <S.Main onClick={onXClick}>
+        <S.Main>
           <S.MainDiv>
             <S.Content>
               <div>
