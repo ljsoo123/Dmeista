@@ -20,11 +20,10 @@ const Header = () => {
     (store: Store) => store.loginCheck.loginCheck
   );
   //const userInfo = useSelector((store: Store) => store.loginCheck.myInfo);
-  const token = localStorage.getItem("token");
+  const token: string = localStorage.getItem("token");
   const modalCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.modalCheck
   );
-  const searchTag = useSelector((store: Store) => store.loginCheck.search);
   const [name, setName] = useState<any>("");
 
   const onMyPageClick = () => {

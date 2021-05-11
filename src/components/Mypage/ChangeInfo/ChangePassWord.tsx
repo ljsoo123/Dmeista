@@ -14,7 +14,7 @@ const ChangePassWord = () => {
   const [check, setCheck] = useState<boolean>(false);
   const [done, setDone] = useState<boolean>(false);
   const [newPassword, setNewPassword] = useState<string>("");
-  const changePassword = useSelector(
+  const changePassword: boolean = useSelector(
     (store: Store) => store.loginCheck.changePassword
   );
   const onXClick = () => {

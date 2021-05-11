@@ -18,7 +18,7 @@ const Emoji = (props: {
     COOL: "😮",
   };
   const token = localStorage.getItem("token");
-  const refresh_token = localStorage.getItem("refresh-token");
+  //const refresh_token = localStorage.getItem("refresh-token");
   const { emojiValue, setEmojiValue, hover, setHover, id } = props;
   const onEmojiClick = (e) => {
     if (!emojiValue) setEmojiValue(e.target.id);
@@ -33,15 +33,7 @@ const Emoji = (props: {
       .catch((err) => {
         if (err.response.status === 401) {
           axios
-            .put(
-              "http://3.36.218.14:8080/auth",
-              {},
-              {
-                headers: {
-                  "X-Refresh-Token": refresh_token,
-                },
-              }
-            )
+            .put("http://3.36.218.14:8080/auth", {})
             .then((res) => {})
             .catch((err) => {
               window.localStorage.clear();

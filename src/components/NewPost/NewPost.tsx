@@ -8,9 +8,10 @@ import axios from "axios";
 
 const NewPost = () => {
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
-  const refresh_token = localStorage.getItem("refresh-token");
-  const newPostCheck = useSelector((store: Store) => store.loginCheck.newPost);
+  const token: string = localStorage.getItem("token");
+  const newPostCheck: boolean = useSelector(
+    (store: Store) => store.loginCheck.newPost
+  );
   const [autoTag, setAutoTag] = useState<boolean>(false);
   const [content, setContent] = useState<string>("");
   const [imageFile, setImageFile] = useState<File[]>([]);
@@ -45,15 +46,7 @@ const NewPost = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          axios.put(
-            "http://3.36.218.14:8080/auth",
-            {},
-            {
-              headers: {
-                "X-Refresh-Token": refresh_token,
-              },
-            }
-          );
+          axios.put("http://3.36.218.14:8080/auth", {});
         }
       });
   };
@@ -77,15 +70,7 @@ const NewPost = () => {
           .catch((err) => {
             console.log(err.response);
             if (err.response.status === 401) {
-              axios.put(
-                "http://3.36.218.14:8080/auth",
-                {},
-                {
-                  headers: {
-                    "X-Refresh-Token": refresh_token,
-                  },
-                }
-              );
+              axios.put("http://3.36.218.14:8080/auth", {});
             }
           });
       }

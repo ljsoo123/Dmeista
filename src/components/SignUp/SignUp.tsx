@@ -23,7 +23,7 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [auth, setAuth] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const signUpCheck = useSelector(
+  const signUpCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.signUpCheck
   );
   const onXClick = () => {
