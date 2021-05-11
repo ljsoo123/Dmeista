@@ -14,7 +14,7 @@ import Comment from "./Comment/Comment";
 
 const PostContent = (props: { postContent: boolean; postChange }) => {
   let { postContent, postChange } = props;
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const data = useSelector((store: Store) => store.loginCheck.postContent);
   const id = useSelector((store: Store) => store.loginCheck.id);
   const [images, setImages] = useState<string[]>([]);

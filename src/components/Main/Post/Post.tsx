@@ -36,9 +36,11 @@ const Post = (props: {
     emoji,
   } = props;
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
+  const token: string = localStorage.getItem("token");
   const refresh_token = localStorage.getItem("refresh-token");
-  const data = useSelector((store: Store) => store.loginCheck.postContent);
+  const data: Type.PostContent = useSelector(
+    (store: Store) => store.loginCheck.postContent
+  );
   const loginCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.loginCheck
   );

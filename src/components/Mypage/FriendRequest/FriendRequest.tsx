@@ -9,9 +9,9 @@ import axios from "axios";
 import { friendRequestListSaga } from "../../../modules/action/loginCheck";
 
 const FriendRequest = () => {
-  const token = localStorage.getItem("token");
+  const token: string = localStorage.getItem("token");
   const dispatch = useDispatch();
-  const friendCheck = useSelector(
+  const friendCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.friendCheck
   );
   const onXClick = () => {

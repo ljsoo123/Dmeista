@@ -12,7 +12,9 @@ import cancelLogin from "../../../../image/cancelLogin.svg";
 const ChangeInfo = (props: { passwordCheck: boolean }) => {
   const { passwordCheck } = props;
   const dispatch = useDispatch();
-  const changeInfo = useSelector((store: Store) => store.loginCheck.changeInfo);
+  const changeInfo: boolean = useSelector(
+    (store: Store) => store.loginCheck.changeInfo
+  );
   const onXClick = () => {
     dispatch(changeInfoSaga());
   };

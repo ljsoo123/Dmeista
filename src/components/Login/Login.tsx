@@ -18,7 +18,7 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const loginCheck = useSelector((store: Store) => store.loginCheck.modalCheck);
-  const signUpCheck = useSelector(
+  const signUpCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.signUpCheck
   );
 
