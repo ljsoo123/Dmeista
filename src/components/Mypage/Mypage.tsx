@@ -30,7 +30,7 @@ const Mypage = () => {
   });
   const [postList, setPostList] = useState<any>([]);
   const token: string = localStorage.getItem("token");
-  const refresh_token: string = localStorage.getItem("refresh-token");
+  //const refresh_token: string = localStorage.getItem("refresh-token");
 
   const [userInfo, setUserInfo] = useState<T.UserInfo>({
     email: "",
@@ -73,15 +73,7 @@ const Mypage = () => {
       .catch((err) => {
         if (err.response.status === 401) {
           axios
-            .put(
-              "http://3.36.218.14:8080/auth",
-              {},
-              {
-                headers: {
-                  "X-Refresh-Token": refresh_token,
-                },
-              }
-            )
+            .put("http://3.36.218.14:8080/auth", {})
             .then((res) => {
               localStorage.setItem("token", res.data.access_token);
               localStorage.setItem("refresh-token", res.data.refresh_token);
