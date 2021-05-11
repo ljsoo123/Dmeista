@@ -81,9 +81,7 @@ function* loginEndSagaFunc(action: any) {
     alert("로그인 완료");
     yield put(loginEnd());
     localStorage.setItem("token", data.data.access_token);
-    localStorage.setItem("refresh-token", data.data.refresh_token);
     const token = localStorage.getItem("token");
-    const refresh_token = localStorage.getItem("refresh-token");
     try {
       const userData = yield call(axios.get, "http://3.36.218.14:8080/users", {
         headers: {
@@ -96,17 +94,9 @@ function* loginEndSagaFunc(action: any) {
       yield alert("유저 데이터를 불러오지 못했습니다.");
       if (err.response.status == 401) {
         try {
-          yield call(
-            axios.put,
-            "http://3.36.218.14:8080/auth",
-            {},
-            {
-              headers: {
-                "X-Refresh-Token": refresh_token,
-              },
-            }
-          );
+          yield call(axios.put, "http://3.36.218.14:8080/auth", {});
         } catch (err) {
+          console.log(err.response);
           alert("error");
         }
       }
