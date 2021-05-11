@@ -54,6 +54,7 @@ const Search = () => {
           }
         )
         .then((res) => {
+          console.log(res);
           setPosts((prev) => [...prev, ...res.data.application_responses]);
           res.data.application_responses.map((now) => {});
         })
@@ -107,8 +108,7 @@ const Search = () => {
   useEffect(() => {
     setPageNum(0);
     setPosts([]);
-    history.push("/search");
-    // getPostFromServer(token, pageNum, searchTag);
+    getPostFromServer(token, pageNum);
   }, [searchTag]);
   const infiniteScroll = () => {
     let scrollHeight: number = document.documentElement.scrollHeight;
