@@ -107,8 +107,7 @@ const Search = () => {
   useEffect(() => {
     setPageNum(0);
     setPosts([]);
-    history.push("/search");
-    // getPostFromServer(token, pageNum, searchTag);
+    getPostFromServer(token, pageNum);
   }, [searchTag]);
   const infiniteScroll = () => {
     let scrollHeight: number = document.documentElement.scrollHeight;

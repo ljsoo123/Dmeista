@@ -24,6 +24,7 @@ const Header = () => {
   const modalCheck: boolean = useSelector(
     (store: Store) => store.loginCheck.modalCheck
   );
+  const searchTag = useSelector((store: Store) => store.loginCheck.search);
   const [name, setName] = useState<any>("");
 
   const onMyPageClick = () => {
@@ -67,7 +68,7 @@ const Header = () => {
             <S.Title onClick={onGoHome}>Dmeista</S.Title>
             <S.Input>
               <input
-                placeholder="태그로 검색하세요! ex) #대마고"
+                placeholder="태그로 검색하세요! ex) 대마고"
                 onKeyPress={(e) => {
                   onSearch(e);
                 }}
