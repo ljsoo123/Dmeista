@@ -14,9 +14,9 @@ const Comment = (props: { data: PostContent }) => {
   const ref = useRef();
   const { data } = props;
   //const data = useSelector((store: Store) => store.loginCheck.postContent);
-  const id = useSelector((store: Store) => store.loginCheck.id);
-  const token = localStorage.getItem("token");
-  const refresh_token = localStorage.getItem("refresh-token");
+  const id: number = useSelector((store: Store) => store.loginCheck.id);
+  const token: string = localStorage.getItem("token");
+  //const refresh_token = localStorage.getItem("refresh-token");
   const [nowComment, setNowComment] = useState<string>();
   const [Comment, setComment] = useState<PostContent>();
   const [ReCommentCheck, setReCommentCheck] = useState<boolean[]>();
@@ -62,15 +62,7 @@ const Comment = (props: { data: PostContent }) => {
         .catch((err) => {
           if (err.response.status === 401) {
             axios
-              .put(
-                "http://3.36.218.14:8080/auth",
-                {},
-                {
-                  headers: {
-                    "X-Refresh-Token": refresh_token,
-                  },
-                }
-              )
+              .put("http://3.36.218.14:8080/auth", {})
               .then((res) => {
                 localStorage.setItem("token", res.data.access_token);
                 localStorage.setItem("refresh-token", res.data.refresh_token);

@@ -11,8 +11,8 @@ interface SubComment {
 }
 const SubComment = (props: { data: SubComment[] }) => {
   const { data } = props;
-  const token = localStorage.getItem("token");
-  const refresh_token = localStorage.getItem("refresh-token");
+  const token: string = localStorage.getItem("token");
+  //const refresh_token = localStorage.getItem("refresh-token");
   const [change, setChange] = useState<boolean>(false);
   const [changeText, setChangeText] = useState<string>("");
 
@@ -45,15 +45,7 @@ const SubComment = (props: { data: SubComment[] }) => {
                         .catch((err) => {
                           if (err.response.status === 401) {
                             axios
-                              .put(
-                                "http://3.36.218.14:8080/auth",
-                                {},
-                                {
-                                  headers: {
-                                    "X-Refresh-Token": refresh_token,
-                                  },
-                                }
-                              )
+                              .put("http://3.36.218.14:8080/auth", {})
                               .then((res) => {
                                 localStorage.setItem(
                                   "token",
@@ -95,15 +87,7 @@ const SubComment = (props: { data: SubComment[] }) => {
                     .catch((err) => {
                       if (err.response.status === 401) {
                         axios
-                          .put(
-                            "http://3.36.218.14:8080/auth",
-                            {},
-                            {
-                              headers: {
-                                "X-Refresh-Token": refresh_token,
-                              },
-                            }
-                          )
+                          .put("http://3.36.218.14:8080/auth", {})
                           .then((res) => {
                             localStorage.setItem(
                               "token",

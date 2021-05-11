@@ -28,12 +28,14 @@ interface ResPosts {
 
 const Search = () => {
   const history = useHistory();
-  const token = localStorage.getItem("token");
-  const refresh_token = localStorage.getItem("refresh-token");
+  const token: string = localStorage.getItem("token");
+  //const refresh_token: string = localStorage.getItem("refresh-token");
   const [posts, setPosts] = useState<ResPosts[]>([]);
   const [postContent, setPostContent] = useState<boolean>(false);
   const [pageNum, setPageNum] = useState<number>(0);
-  const searchTag = useSelector((store: Store) => store.loginCheck.search);
+  const searchTag: string = useSelector(
+    (store: Store) => store.loginCheck.search
+  );
   const onPostClick = (id: number) => {
     setPostContent(true);
   };
@@ -60,15 +62,7 @@ const Search = () => {
         .catch((err) => {
           if (err.response.status === 401) {
             axios
-              .put(
-                "http://3.36.218.14:8080/auth",
-                {},
-                {
-                  headers: {
-                    "X-Refresh-Token": refresh_token,
-                  },
-                }
-              )
+              .put("http://3.36.218.14:8080/auth", {})
               .then((res) => {
                 localStorage.setItem("token", res.data.access_token);
                 localStorage.setItem("refresh-token", res.data.refresh_token);
