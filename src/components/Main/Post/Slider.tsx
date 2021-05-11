@@ -6,7 +6,7 @@ import next from "../../../../image/next.svg";
 const Slider = (props: { images: string[]; total: number }) => {
   const { images, total } = props;
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const slideRef = useRef(null);
+  const slideRef: React.MutableRefObject<any> = useRef(null);
   const nextSlide = () => {
     if (currentSlide >= total - 1) {
       setCurrentSlide(0);
