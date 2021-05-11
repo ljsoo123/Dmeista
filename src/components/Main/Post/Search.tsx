@@ -54,7 +54,6 @@ const Search = () => {
           }
         )
         .then((res) => {
-          console.log(res);
           setPosts((prev) => [...prev, ...res.data.application_responses]);
           res.data.application_responses.map((now) => {});
         })
