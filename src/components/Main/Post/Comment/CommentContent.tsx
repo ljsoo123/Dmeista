@@ -46,7 +46,7 @@ const CommentContent = (props: { data: CommentType }) => {
               localStorage.setItem("token", res.data.access_token);
               localStorage.setItem("refresh-token", res.data.refresh_token);
             })
-            .catch((err) => {
+            .catch(() => {
               localStorage.clear();
             });
         }
@@ -81,7 +81,7 @@ const CommentContent = (props: { data: CommentType }) => {
                 localStorage.setItem("token", res.data.access_token);
                 localStorage.setItem("refresh-token", res.data.refresh_token);
               })
-              .catch((err) => {
+              .catch(() => {
                 localStorage.clear();
               });
           }
@@ -113,7 +113,7 @@ const CommentContent = (props: { data: CommentType }) => {
                 localStorage.setItem("token", res.data.access_token);
                 localStorage.setItem("refresh-token", res.data.refresh_token);
               })
-              .catch((err) => {
+              .catch(() => {
                 localStorage.clear();
               });
           }

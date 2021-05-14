@@ -18,7 +18,7 @@ const Comment = (props: { data: PostContent }) => {
   const token: string = localStorage.getItem("token");
   //const refresh_token = localStorage.getItem("refresh-token");
   const [nowComment, setNowComment] = useState<string>();
-  const [Comment, setComment] = useState<PostContent>();
+  const [comment, setComment] = useState<PostContent>();
   const [ReCommentCheck, setReCommentCheck] = useState<boolean[]>();
 
   const [ReComment, setReComment] = useState<string>("");
