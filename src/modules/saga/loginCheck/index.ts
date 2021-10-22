@@ -34,7 +34,7 @@ import {
   search,
   SEARCH_SAGA,
 } from "../../action/loginCheck";
-import proc from "redux-saga/lib/proc";
+
 import { initialState } from "../../reducer/loginCheck";
 
 dotenv.config();
